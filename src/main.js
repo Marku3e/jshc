@@ -11,6 +11,14 @@ import 'muse-ui/dist/muse-ui.css'
 
 Vue.use(MuseUI)
 
+import Mint from "mint-ui"
+import './assets/css/mint.css'
+
+Vue.use(Mint)
+import { Swipe, SwipeItem } from 'mint-ui';
+
+Vue.component("mt-swipe", Swipe);
+Vue.component("mt-swipeItem", SwipeItem);
 
 import axios from "axios"
 

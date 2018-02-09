@@ -1,4 +1,4 @@
-#home .header {
+.header {
   width: 100%;
   height: 0.5rem;
   border-bottom: 1px solid #e5e5e5;
@@ -7,15 +7,15 @@
   justify-content: space-between;
   font-size: 14px;
 }
-#home .city {
+.city {
   width: 0.8rem;
   line-height: 0.5rem;
   text-align: center;
 }
-#home .city span {
+.city span {
   font-weight: 700;
 }
-#home .search {
+.search {
   width: 2rem;
   height: 0.3rem;
   background-color: #f3f3f3;
@@ -23,25 +23,26 @@
   margin: auto 0;
   padding-left: 50px;
   line-height: 0.3rem;
+  border-radius: 5px;
 }
-#home .search span {
+.search span {
   font-weight: 700;
   display: inline-block;
   padding-top: 1px;
 }
-#home .option {
+.option {
   width: 0.8rem;
   line-height: 0.5rem;
   text-align: center;
 }
-#home .option .iconfont {
+.option .iconfont {
   font-size: 24px;
 }
-#home .option ul {
+.option ul {
   text-align: left;
   padding-top: 10px;
 }
-#home .option ul li {
+.option ul li {
   padding-left: 20px;
   font-size: 14px;
   line-height: 34px;

@@ -16,12 +16,8 @@
       }
     }
   }
-  .b_line {
-    width: 100%;
-    height: 10px;
-    background-color: #f3f3f3;
-  }
-  .car_list{
+
+  .car_list {
     .mu-tabs {
       border-bottom: 1px solid #e5e5e5;
       .mu-tab-link {
@@ -33,20 +29,115 @@
         font-weight: 700;
         padding: 12px 10px;
         color: #000000;
-        .line{
+        .line {
           height: 3px;
           width: 0.5rem
         }
       }
     }
-    .newcarMsg{
+    .newcarMsg {
       width: 100%;
       height: auto;
-      .car_msg{
-        width: 0.8rem;
-        height: 0.7rem;
-        img{
+      .car_msg {
+        width: 100%;
+        height: 1.1rem;
+        display: flex;
+        flex-flow: row nowrap;
+        border-bottom: 1px solid #e5e5e5;
+        background-color: #fff;
+        padding-left: 15px;
+        .carImg {
+          width: 0.8rem;
           height: 0.7rem;
+          margin: 20px 20px 0 0;
+          img {
+            height: 100%;
+          }
+        }
+        .car_detailed {
+          padding-top: 0.1rem;
+          h4 {
+            ont-size: 17px;
+            line-height: 27px;
+            margin: 0;
+            font-weight: 700;
+          }
+          p {
+            font-size: 14px;
+            line-height: 23px;
+            margin: 0;
+            font-weight: bold;
+            width: 2.38rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000;
+          }
+          span {
+            font-size: 12px;
+            line-height: 22px;
+            margin: 0;
+            color: #666666;
+            display: block;
+          }
+          i {
+            font-size: 12px;
+            margin: 0;
+            color: #e40011;
+            display: block;
+          }
+        }
+      }
+    }
+    .usedcarMsg{
+      .car_msg {
+        width: 100%;
+        height: 1.1rem;
+        display: flex;
+        flex-flow: row nowrap;
+        border-bottom: 1px solid #e5e5e5;
+        background-color: #fff;
+        padding-left: 15px;
+        .carImg {
+          width: 0.8rem;
+          height: 0.7rem;
+          margin: 20px 20px 0 0;
+          img {
+            height: 100%;
+          }
+        }
+        .car_detailed {
+          padding-top: 0.1rem;
+          h4 {
+            ont-size: 17px;
+            line-height: 27px;
+            margin: 0;
+            font-weight: 700;
+          }
+          p {
+            font-size: 14px;
+            line-height: 23px;
+            margin: 0;
+            font-weight: bold;
+            width: 2.38rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #000;
+          }
+          span {
+            font-size: 12px;
+            line-height: 22px;
+            margin: 0;
+            color: #666666;
+            display: block;
+          }
+          i {
+            font-size: 12px;
+            margin: 0;
+            color: #e40011;
+            display: block;
+          }
         }
       }
     }

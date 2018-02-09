@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <!--通用头部-->
-    <s_header></s_header>
+    <subHeader></subHeader>
     <div class="filter">
       <ul class="filter_list">
         <li>5万以下</li>
@@ -18,55 +18,78 @@
         <li>别克</li>
       </ul>
     </div>
-    <div class="b_line"></div>
+    <div class="b-line"></div>
     <div class="car_list">
       <mu-tabs :value="activeTab" @change="handleTabChange">
         <mu-tab value="newcar" title="新车"/>
         <mu-tab value="usedcar" title="二手车"/>
       </mu-tabs>
-      <div v-if="activeTab === 'newcar'" class='newcarMsg'>
-        <div class="car_msg">
-          <div class="car_img fl">
-            <img src="" alt="">
+      <div v-if="activeTab === 'newcar'" class='newcarMsg' v-for='(item,index) in newCarlist'>
+        <router-link v-bind="{to:'/newcar/detail/'+item.modelId}" class="car_msg">
+          <div class="carImg">
+            <img :src="item.image">
           </div>
-          <div class="car_detail">
-            <h6></h6>
-            <p class="car_title"></p>
-            <p class="car_time"></p>
-            <p class="car_pay">
-              <span class='b'></span>&nbsp;
-              <span></span>
-            </p>
+          <div class="car_detailed">
+            <h4>{{item.fullSeriesName}}</h4>
+            <p>{{item.modelName}}</p>
+            <span>厂商指导价：{{item.price}}万</span>
+            <i>首付{{item.firstPay}}万 月供{{item.monthRepay}}元</i>
           </div>
-        </div>
+        </router-link>
       </div>
-      <div v-if="activeTab === 'usedcar'">
-        <h2>Tab Two</h2>
-        <p>
-          这是第二个 tab
-        </p>
+      <div v-if="activeTab === 'usedcar'" class='usedcarMsg' v-for='(item,index) in usedCarlist'>
+        <router-link v-bind="{to:'/usedcar/detail/'+item.modelId}" class="car_msg">
+          <div class="carImg">
+            <img :src="item.image">
+          </div>
+          <div class="car_detailed">
+            <h4>{{item.fullSeriesName}}</h4>
+            <p>{{item.modelName}}</p>
+            <span>厂商指导价：{{item.price}}万</span>
+            <i>首付{{item.firstPay}}万 月供{{item.monthRepay}}元</i>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import s_header from "../subcom/header"
+
+  import subHeader from '../subcom/header'
 
   export default {
     name: "home",
     components: {
-      s_header
+      "subHeader": subHeader
+
     },
     data() {
       return {
+        noData: '',
         activeTab: "newcar",
-        list: [],
-        usedList: []
+        newCarlist: [],
+        usedCarlist: [],
+        usedData: {
+          size: 5,
+          page: 4,
+          orderType: 1,
+          isNewCar: false
+        },
+        newData: {
+          size: 5,
+          page: 1,
+          orderType: 1,
+          isNewCar: true,
+        },
       }
     },
     created() {
       this.getNewcar();
+      this.getUsedcar();
+    },
+    mounted() {
+      this.scroller = this.$el
     },
     methods: {
       handleTabChange(val) {
@@ -74,31 +97,40 @@
       },
       getNewcar() {
         let url = this.$common.baseUrl + "/car/source/getCarPriceList";
-        let data = {
-          size: 5,
-          page: 1,
-          orderType: 1,
-          isNewCar: true
-
-        }
-        this.$axios.post(url, data)
+        let that = this
+        this.$axios.post(url, that.newData)
           .then(function (res) {
             console.log(res);
             if (res.status == 200) {
-              this.list = res.data.list
-              console.log(res.data.list);
+              that.newCarlist = that.newCarlist.concat(res.data.data.list);
             }
           })
           .catch(function (err) {
             console.log(err);
           });
 
-      }
+      },
+      getUsedcar() {
+        let url = this.$common.baseUrl + "/car/source/getOldCarList";
+        let that = this
+        this.$axios.post(url, that.usedData)
+          .then(function (res) {
+            console.log(res);
+            if (res.status == 200) {
+              that.usedCarlist = that.usedCarlist.concat(res.data.data.list);
+            }
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      },
     }
+
   }
 </script>
 
 <style scoped lang='less'>
+
   @import "home";
 
 </style>

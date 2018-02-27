@@ -10,6 +10,9 @@ import usedSearch from '@/components/search/usedSearch'
 import appointment from '@/components/appointment/appointment'
 import aboutus from '@/components/aboutus/aboutus'
 import demo from  "@/components/demo"
+import login from  "@/components/login/login"
+import store from  "@/components/store/store"
+import success from  "@/components/login/success"
 
 Vue.use(Router)
 
@@ -25,6 +28,9 @@ export default new Router({
     {path: '/search/used', name: 'usedSearch', component: usedSearch},
     {path: '/appointment', name: 'appointment', component: appointment},
     {path: '/aboutus', name: 'aboutus', component: aboutus},
+    {path: '/login', name: 'login', component: login},
     {path: '/demo', name: 'demo', component: demo},
+    {path: '/store', name: 'store', component: store},
+    {path: '/success', name: 'success', component: success},
   ]
 })

@@ -138,9 +138,9 @@
         <span class='iconfont icon-dianhuazhengzaibohao'></span>
         <i>咨询</i>
       </div>
-      <div class="appointment">
+      <router-link class="appointment" :to="'/login'">
         预约到店
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

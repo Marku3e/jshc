@@ -10,7 +10,9 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 
 Vue.use(MuseUI)
-
+import {Toast} from 'mint-ui';
+//
+Vue.prototype.$Toast = Toast;
 import Mint from "mint-ui"
 import './assets/css/mint.css'
 

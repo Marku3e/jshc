@@ -6,7 +6,7 @@
 div, p, h1, h2, h3, h4, h5, h6, i, b, ul, li, ol, dl {
   margin: 0;
   padding: 0;
-  touch-action: none
+  //touch-action: none
 }
 
 ul, li {
@@ -49,8 +49,6 @@ input, button {
 }
 
 body, html {
-  width: 100%;
-  height: 100%;
   color: #333;
   background-color: #fff;
 }
@@ -58,6 +56,8 @@ body, html {
 html {
   font-family: PingFangSC-Medium, Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: calc(100vw / 3.75);
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .fl {
@@ -105,7 +105,9 @@ html {
 }
 
 @red: #e40011;
-
+.red{
+  color: #e40011;
+}
 .b {
   font-weight: 700;
 }

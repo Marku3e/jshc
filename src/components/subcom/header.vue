@@ -11,7 +11,7 @@
     <div class="option">
       <span label="undocked drawer" @click="toggle(true)" class='iconfont icon-bars'></span>
       <mu-drawer right :open="open" :docked="docked" @close="toggle()">
-        <ul @itemClick="docked ? '' : toggle()">
+        <ul @itemClick="docked ? '' : toggle()" class='menu'>
           <li>
             <router-link :to="'/'">首页</router-link>
           </li>
@@ -23,7 +23,7 @@
           </li>
           <div class="bb"></div>
           <li>
-            <router-link :to="'/store'">优惠车型</router-link>
+            <router-link :to="'/demo'">优惠车型</router-link>
           </li>
           <li>
             <router-link :to="'/appointment'">我要提车</router-link>
@@ -34,6 +34,32 @@
           <div class="bb"></div>
         </ul>
       </mu-drawer>
+      <mt-popup v-model="popupVisible" popup-transition="popup-fade">
+
+        <div class="c-header">
+          <span class="iconfont icon-back"></span>
+          选择地区
+        </div>
+        <div class="c-body">
+          <mt-index-list>
+            <mt-index-section index="A">
+              <mt-cell title="Aaron"></mt-cell>
+              <mt-cell title="Alden"></mt-cell>
+              <mt-cell title="Austin"></mt-cell>
+            </mt-index-section>
+            <mt-index-section index="B">
+              <mt-cell title="Baldwin"></mt-cell>
+              <mt-cell title="Braden"></mt-cell>
+            </mt-index-section>
+            ...
+            <mt-index-section index="Z">
+              <mt-cell title="Zack"></mt-cell>
+              <mt-cell title="Zane"></mt-cell>
+            </mt-index-section>
+          </mt-index-list>
+        </div>
+
+      </mt-popup>
     </div>
   </div>
 </template>
@@ -43,6 +69,7 @@
     name: "home",
     data() {
       return {
+        popupVisible: false,
         open: false,
         docked: true
       }
@@ -53,7 +80,12 @@
         this.docked = !flag
       },
       openCity() {
-        alert(1)
+        this.popupVisible = !this.popupVisible
+        let url = this.$common.baseUrl + '/car/source/getAreaList'
+        this.$axios.post(url)
+          .then(res => {
+            console.log(res);
+          })
       },
     }
   }

@@ -28,7 +28,22 @@
 
 <script>
   export default {
-    name: "store"
+    name: "store",
+    data() {
+      return {}
+    },
+    created() {
+      this.getStore();
+    },
+    methods: {
+      getStore() {
+        let url = this.$common.baseUrl + '/car/source/getAllStore'
+        this.$axios.post(url)
+          .then(function (res) {
+            console.log(res);
+          })
+      }
+    }
   }
 </script>
 

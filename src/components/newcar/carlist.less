@@ -6,27 +6,73 @@
     display: flex;
     flex-flow: row nowrap;
     padding: 10px 15px;
+    position: relative;
     div {
       width: 25%;
       font-size: 14px;
       color: #333333;
       text-align: center;
       line-height: 24px;
-      .icon-down{
+      .icon-down {
         font-size: 10px;
       }
-      .icon-filter{
+      .icon-filter {
         font-weight: 700;
         color: #000;
       }
     }
-    .def{
+    .def {
       text-align: left;
 
     }
-    .all{
+    .all {
       text-align: right;
     }
+    .deflist {
+      z-index: 10;
+      width: 100vw;
+      height: 3.5rem;
+      background-color: #fff;
+      position: absolute;
+      top: 0.42rem;
+      left: 0;
+      padding-left: 0.15rem;
+      border-bottom: 1px solid #e5e5e5;
+      li {
+        height: 0.5rem;
+        border-bottom: 1px solid #e5e5e5;
+        line-height: 0.5rem;
+      }
+      .v-modal{
+        top: 100px;
+      }
+    }
+    .mint-popup-top{
+      width: 100vw;
+      height: 3.5rem;
+      top: 0.92rem;
+    }
+
+    .active {
+      color: #e40011;
+    }
+  }
+  .icon-duigou {
+    margin-right: 0.2rem;
+    font-weight: 700;
+    float: right;
+
+  }
+
+  .layout {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    z-index: 8;
+    background-color: rgba(0, 0, 0, 0.3);
+
   }
   .car_msg {
     width: 100%;
@@ -77,5 +123,11 @@
         display: block;
       }
     }
+  }
+  .no-scroll {
+    overflow-y: hidden;
+  }
+  .none{
+
   }
 }

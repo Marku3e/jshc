@@ -81,9 +81,12 @@
         popupVisible: false,
         scroll: true,
         newCarlist: [],
-        page: 1,
-        size: 20,
-        orderType: 1,
+        carInfo: {
+          isNewCar: null,
+          size: null,
+          page: null,
+          orderType: null,
+        },
         allLoaded: false,
         scrollMode: "auto", //移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
         totalpage: 0,
@@ -92,10 +95,18 @@
         bottomAllLoaded: false,
       }
     },
+    watch: {
+      '$route.query': function () {
+        location.reload()
+      }
+    },
     mounted() {
 
     },
     created() {
+      //console.log(this.$route.query);
+      this.carInfo = this.$route.query;
+      console.log(this.carInfo);
       this.getNewcar();
     },
     methods: {
@@ -113,7 +124,16 @@
       getNewcar() {
         let url = this.$common.baseUrl + "/car/source/getCarPriceList";
         let that = this
-        this.$axios.post(url + '?isNewCar=true&size=' + this.size + '&page=' + this.page + '&orderType=' + this.orderType + '')
+        // let param = url + '?isNewCar=' + this.carInfo.isNewCar + '&size=' + this.carInfo.size + '&page=' + this.carInfo.page + '&orderType=' + this.carInfo.orderType
+        // let param = this.carInfo
+        let param = new URLSearchParams();
+        param.append("isNewCar", this.carInfo.isNewCar);
+        param.append("size", this.carInfo.size);
+        param.append("page", this.carInfo.page);
+        param.append("orderType", this.carInfo.orderType);
+        param.append("provId", this.carInfo.provId);
+        console.log(param);
+        this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
             if (res.status == 200) {
@@ -136,12 +156,15 @@
         //   this.page = 1;
         //   this.allLoaded = true;
         // } else {
-        this.page = this.page + 1;
+        this.carInfo.page = this.carInfo.page - 0 + 1;
+        console.log(this.carInfo.page);
         this.allLoaded = false;
         // }
         let url = this.$common.baseUrl + "/car/source/getCarPriceList";
         let that = this
-        this.$axios.post(url + '?isNewCar=true&size=' + this.size + '&page=' + this.page + '&orderType=' + this.orderType + '').then(res => {
+        let param = url + '?isNewCar=' + this.carInfo.isNewCar + '&size=' + this.carInfo.size + '&page=' + this.carInfo.page + '&orderType=' + this.carInfo.orderType
+
+        this.$axios.post(url, param).then(res => {
           that.newCarlist = that.newCarlist.concat(res.data.data.list);
           console.log(that.newCarlist);
           // this.isHaveMore();

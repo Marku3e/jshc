@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="city" @click="openCity()">
-      <i>武汉</i>
+      <i>{{provname}}</i>
       <span class='iconfont icon-down1'></span>
     </div>
     <router-link class="search" :to="'search/new'">
@@ -10,13 +10,13 @@
     </router-link>
     <div class="option">
       <span label="undocked drawer" @click="toggle(true)" class='iconfont icon-bars'></span>
-      <mu-drawer right :open="open" :docked="docked" @close="toggle()">
+      <mu-drawer right :open="open1" :docked="docked" @close="toggle()">
         <ul @itemClick="docked ? '' : toggle()" class='menu'>
           <li>
             <router-link :to="'/'">首页</router-link>
           </li>
           <li>
-            <router-link :to="'/newcar'">买新车</router-link>
+            <router-link :to="{path:'/newcar',query:{isNewCar:true,size:5,page:1,orderType:1}}">买新车</router-link>
           </li>
           <li>
             <router-link :to="'/usedcar'">买二手车</router-link>
@@ -34,33 +34,66 @@
           <div class="bb"></div>
         </ul>
       </mu-drawer>
-      <mt-popup v-model="popupVisible" popup-transition="popup-fade">
-
-        <div class="c-header">
-          <span class="iconfont icon-back"></span>
-          选择地区
-        </div>
-        <div class="c-body">
-          <mt-index-list>
-            <mt-index-section index="A">
-              <mt-cell title="Aaron"></mt-cell>
-              <mt-cell title="Alden"></mt-cell>
-              <mt-cell title="Austin"></mt-cell>
-            </mt-index-section>
-            <mt-index-section index="B">
-              <mt-cell title="Baldwin"></mt-cell>
-              <mt-cell title="Braden"></mt-cell>
-            </mt-index-section>
-            ...
-            <mt-index-section index="Z">
-              <mt-cell title="Zack"></mt-cell>
-              <mt-cell title="Zane"></mt-cell>
-            </mt-index-section>
-          </mt-index-list>
-        </div>
-
-      </mt-popup>
     </div>
+    <mt-popup v-model="popupVisible" popup-transition="popup-fade">
+      <div class="c-header" v-show=!open2>
+        <span class="iconfont icon-back" @click='hidebox()'></span>
+        选择地区
+      </div>
+      <div class="c-body">
+        <mt-index-list>
+          <mt-index-section index="*">
+            <div @click="picker($event)">
+              <mt-cell title="全国"></mt-cell>
+            </div>
+          </mt-index-section>
+          <div v-for='(item,index) in provlist'>
+            <mt-index-section :index="item.initial">
+              <div @click="picker($event,item.list[0].prov_id)" :cityid="item.list[0].prov_id" label="toggle drawer">
+                <mt-cell :title="item.list[0].prov_name"></mt-cell>
+              </div>
+              <div class='c-bb' v-if=item.list[1]></div>
+              <div @click="picker($event,item.list[1].prov_id)" :cityid="item.list[1].prov_id" v-if=item.list[1]
+                   label="toggle drawer">
+                <mt-cell :title="item.list[1].prov_name"></mt-cell>
+              </div>
+              <div class='c-bb' v-if=item.list[2]></div>
+              <div @click="picker($event,item.list[2].prov_id)" :cityid="item.list[2].prov_id" v-if=item.list[2]
+                   label="toggle drawer">
+                <mt-cell :title="item.list[2].prov_name" v-if=item.list[2]></mt-cell>
+              </div>
+              <div class='c-bb' v-if=item.list[3]></div>
+              <div @click="picker($event,item.list[3].prov_id)" :cityid="item.list[3].prov_id" v-if=item.list[3]
+                   label="toggle drawer">
+                <mt-cell :title="item.list[3].prov_name" v-if=item.list[3]></mt-cell>
+              </div>
+              <div class='c-bb' v-if=item.list[4]></div>
+              <div @click="picker($event,item.list[4].prov_id)" :cityid="item.list[4].prov_id" v-if=item.list[4]
+                   label="toggle drawer">
+                <mt-cell :title="item.list[4].prov_name" v-if=item.list[4]></mt-cell>
+              </div>
+              <div class='c-bb' v-if=item.list[5]></div>
+              <div @click="picker($event,item.list[5].prov_id)" :cityid="item.list[5].prov_id" v-if=item.list[5]
+                   label="toggle drawer">
+                <mt-cell :title="item.list[5].prov_name" v-if=item.list[5]></mt-cell>
+              </div>
+              <div class='c-bb' v-if=item.list[6]></div>
+              <div @click="picker($event,item.list[6].prov_id)" :cityid="item.list[6].prov_id" v-if=item.list[6]>
+                <mt-cell :title="item.list[6].prov_name" v-if=item.list[6]></mt-cell>
+              </div>
+            </mt-index-section>
+          </div>
+        </mt-index-list>
+      </div>
+      <mu-drawer right :open="open2" class='drawer'>
+        <div class="c-title">{{titlename}}</div>
+        <ul class='c-list'>
+          <li>全省</li>
+          <p>{{titlename}}</p>
+          <li v-for="(city,index) in citylist" @click='getcity(city.city_name,city.city_id)'>{{city.city_name}}</li>
+        </ul>
+      </mu-drawer>
+    </mt-popup>
   </div>
 </template>
 
@@ -70,13 +103,76 @@
     data() {
       return {
         popupVisible: false,
-        open: false,
-        docked: true
+        open1: false,
+        open2: false,
+        docked: true,
+        provlist: [],
+        citylist: [],
+        provname: '',
+        titlename: '',
       }
     },
+    created() {
+      this.$route.query;
+      this.provname = localStorage.getItem("cityname")
+    },
     methods: {
+      getcity(name, id) {
+        console.log(id);
+        console.log(name);
+        localStorage.setItem("cityname", name);
+        this.$router.push({
+          path: '/newcar',
+          query: {
+            "isNewCar": true,
+            "size": '10',
+            "page": '1',
+            "provId": id,
+            "orderType": 1,
+          }
+        })
+        this.popupVisible = false
+      },
+      demo: function () {
+        console.log(123);
+      },
+      picker: function (event, id) {
+        // this.open2 = true;
+        console.log(id);
+        let url = this.$common.baseUrl + '/car/basic/getCitysByProvId'
+        this.$axios.post(url + '?provId=' + id + '').then(res => {
+          console.log(res.data.data[0])
+          this.titlename = res.data.data[0].prov_name
+          console.log(this.provname);
+          if (res.data.data[1]) {
+            this.open2 = true;
+            this.citylist = res.data.data;
+          } else {
+            this.open2 = false
+            localStorage.setItem("cityname", res.data.data[0].prov_name)
+            // let url = this.$common.baseUrl + '/car/source/getCarPriceList'
+            // this.$axios.post(url + '?isNewCar=true&size=5&page=1&provId=' + id + '&orderType=1').then(res => {
+            //   console.log(res);
+            // })
+            this.$router.push({
+              path: '/newcar',
+              query: {
+                "isNewCar": true,
+                "size": '10',
+                "page": '1',
+                "provId": id,
+                "orderType": 1,
+              }
+            })
+            this.popupVisible = false
+          }
+        })
+      },
+      hidebox: function () {
+        this.popupVisible = false
+      },
       toggle(flag) {
-        this.open = !this.open
+        this.open1 = !this.open1
         this.docked = !flag
       },
       openCity() {
@@ -85,6 +181,11 @@
         this.$axios.post(url)
           .then(res => {
             console.log(res);
+            if (res.status == 200) {
+              console.log(res.data.data[0]);
+              this.provlist = res.data.data;
+
+            }
           })
       },
     }

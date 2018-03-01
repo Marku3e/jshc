@@ -26,8 +26,8 @@
           <mt-tab-item v-bind:id="2">二手车</mt-tab-item>
         </mt-navbar>
         <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-        <mt-tab-container v-model="selected">
-          <mt-tab-container-item v-bind:id="1">
+          <mt-tab-container v-model="selected">
+            <mt-tab-container-item v-bind:id="1">
               <div class='newcarMsg' v-for='(item,index) in newCarlist'>
                 <router-link v-bind="{to:'/newcar/detail/'+item.modelId}" class="car_msg">
                   <div class="carImg">
@@ -41,23 +41,23 @@
                   </div>
                 </router-link>
               </div>
-          </mt-tab-container-item>
-          <mt-tab-container-item v-bind:id="2">
-            <div class='usedcarMsg' v-for='(item,index) in usedCarlist'>
-              <router-link v-bind="{to:'/usedcar/detail/'+item.modelId}" class="car_msg">
-                <div class="carImg">
-                  <img :src="item.image">
-                </div>
-                <div class="car_detailed">
-                  <h4>{{item.fullSeriesName}}</h4>
-                  <p>{{item.modelName}}</p>
-                  <span>厂商指导价：{{item.price}}万</span>
-                  <i>首付{{item.firstPay}}万 月供{{item.monthRepay}}元</i>
-                </div>
-              </router-link>
-            </div>
-          </mt-tab-container-item>
-        </mt-tab-container>
+            </mt-tab-container-item>
+            <mt-tab-container-item v-bind:id="2">
+              <div class='usedcarMsg' v-for='(item,index) in usedCarlist'>
+                <router-link v-bind="{to:'/usedcar/detail/'+item.modelId}" class="car_msg">
+                  <div class="carImg">
+                    <img :src="item.image">
+                  </div>
+                  <div class="car_detailed">
+                    <h4>{{item.fullSeriesName}}</h4>
+                    <p>{{item.modelName}}</p>
+                    <span>{{item.cityName}} | {{item.updateTime}} | {{item.mile?item.mile+'万公里':"暂无数据"}}</span>
+                    <i>首付{{item.firstPay}}万 月供{{item.monthRepay}}元</i>
+                  </div>
+                </router-link>
+              </div>
+            </mt-tab-container-item>
+          </mt-tab-container>
         </mt-loadmore>
 
       </div>
@@ -81,7 +81,7 @@
         activeTab: "newcar",
         newCarlist: [],
         usedCarlist: [],
-        size: 5,
+        size: 20,
         page: 1,
         orderType: 1,
         searchKey: '',

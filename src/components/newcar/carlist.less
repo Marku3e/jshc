@@ -1,60 +1,56 @@
 #carlist {
+ // padding-bottom: .5rem;
   .filter {
     width: 100%;
     height: 0.42rem;
     border-bottom: 1px solid #e5e5e5;
     display: flex;
     flex-flow: row nowrap;
-    padding: 10px 15px;
+    padding: .1rem .15rem;
     position: relative;
     div {
       width: 25%;
-      font-size: 14px;
+      font-size: .14rem;
       color: #333333;
       text-align: center;
-      line-height: 24px;
+      line-height: .24rem;
       .icon-down {
-        font-size: 10px;
+        font-size: .1rem;
       }
       .icon-filter {
         font-weight: 700;
         color: #000;
       }
     }
+    .red {
+      color: #e40011;
+    }
+
     .def {
       text-align: left;
+      .rotate {
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
 
     }
     .all {
       text-align: right;
     }
-    .deflist {
-      z-index: 10;
-      width: 100vw;
-      height: 3.5rem;
-      background-color: #fff;
-      position: absolute;
-      top: 0.42rem;
-      left: 0;
-      padding-left: 0.15rem;
-      border-bottom: 1px solid #e5e5e5;
-      li {
-        height: 0.5rem;
-        border-bottom: 1px solid #e5e5e5;
-        line-height: 0.5rem;
-      }
-      .v-modal{
-        top: 100px;
-      }
-    }
-    .mint-popup-top{
+
+    .mint-popup-top {
       width: 100vw;
       height: 3.5rem;
       top: 0.92rem;
     }
 
     .active {
+      background-color: #FACCCF;
       color: #e40011;
+      border: 1px solid #e40011;
     }
   }
   .icon-duigou {
@@ -68,11 +64,99 @@
     width: 100vw;
     height: 100vh;
     position: absolute;
-    top: 1rem;
+    top: 0.92rem;
     left: 0;
     z-index: 8;
     background-color: rgba(0, 0, 0, 0.3);
+    .deflist, .carBrand {
+      z-index: 10;
+      width: 100vw;
+      height: 3.5rem;
+      background-color: #fff;
+      position: absolute;
+      //top: 0.42rem;
+      left: 0;
+      padding-left: 0.15rem;
+      border-bottom: 1px solid #e5e5e5;
+      .icon-duigou{
+        color: #ffffff;
+      }
+      .redduigou{
+        color: #e40011;
+      }
 
+      li {
+        height: 0.5rem;
+        border-bottom: 1px solid #e5e5e5;
+        line-height: 0.5rem;
+      }
+      img {
+        width: 0.25rem;
+        vertical-align: middle;
+        margin-right: 0.2rem;
+      }
+      .v-modal {
+        top: 100px;
+      }
+    }
+
+    .payBox {
+      z-index: 10;
+      width: 100vw;
+      height: 1.26rem;
+      background-color: #fff;
+      padding: 0.15rem;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-content: space-between;
+      li {
+        width: 1rem;
+        height: 0.4rem;
+        line-height: 0.4rem;
+        text-align: center;
+        font-size: 0.14rem;
+        color: #666666;
+        background-color: #f3f3f3;
+      }
+      .f-active {
+        background-color: #FACCCF;
+        color: #e40011;
+        border: 1px solid #e40011;
+      }
+    }
+  }
+  .carBrand {
+    overflow-y: auto;
+    z-index: 10;
+    width: 100vw;
+    height: 3.5rem;
+    background-color: #fff;
+    position: absolute;
+    top: 0.92rem;
+    left: 0;
+    padding-left: 0.15rem;
+    border-bottom: 1px solid #e5e5e5;
+    .icon-duigou{
+      color: #ffffff;
+    }
+    .redduigou{
+      color: #e40011;
+    }
+
+    li {
+      height: 0.5rem;
+      border-bottom: 1px solid #e5e5e5;
+      line-height: 0.5rem;
+    }
+    img {
+      width: 0.25rem;
+      vertical-align: middle;
+      margin-right: 0.2rem;
+    }
+    .v-modal {
+      top: 100px;
+    }
   }
   .car_msg {
     width: 100%;
@@ -85,7 +169,7 @@
     .carImg {
       width: 0.8rem;
       height: 0.7rem;
-      margin: 20px 20px 0 0;
+      margin: .2rem .2rem 0 0;
       img {
         height: 100%;
       }
@@ -93,14 +177,14 @@
     .car_detailed {
       padding-top: 0.1rem;
       h4 {
-        ont-size: 17px;
-        line-height: 27px;
+        ont-size: 0.17rem;
+        line-height: 0.27rem;
         margin: 0;
         font-weight: 700;
       }
       p {
-        font-size: 14px;
-        line-height: 23px;
+        font-size: .14rem;
+        line-height: .23rem;
         margin: 0;
         font-weight: bold;
         width: 2.38rem;
@@ -110,24 +194,182 @@
         color: #000;
       }
       span {
-        font-size: 12px;
-        line-height: 22px;
+        font-size: .12rem;
+        line-height: .22rem;
         margin: 0;
         color: #666666;
         display: block;
       }
       i {
-        font-size: 12px;
+        font-size: .12rem;
         margin: 0;
         color: #e40011;
         display: block;
       }
     }
   }
-  .no-scroll {
-    overflow-y: hidden;
-  }
-  .none{
+  .mint-popup {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    -webkit-transform: none;
+    transform: none;
+    z-index: 144;
+    padding-bottom: .5rem;
+    .all-header {
+      width: 100%;
+      height: 0.5rem;
+      border-bottom: 1px solid #ccc;
+      position: fixed;
+      top: 0;
+      left: 0;
+      line-height: .5rem;
+      z-index: 15;
+      .a-h-left {
+        width: .5rem;
+        height: .5rem;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding-left: .16rem;
+        span {
+          font-size: .2rem;
+        }
+      }
+      .a-h-midden {
+        margin: 0 0.5rem;
+        height: .5rem;
+        text-align: center;
+        font-size: .17rem;
+      }
+      .a-h-right {
+        width: .5rem;
+        height: .5rem;
+        position: absolute;
+        right: 0;
+        top: 0;
+        font-size: .14rem;
+        color: #e40011;
+        text-align: center;
+      }
+    }
+    .all-body {
+      //padding-bottom: .5rem;
+      //overflow: auto;
+      margin-top: .5rem;
+      .a-b-price {
+        height: 1.23rem;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      .a-b-type {
+        width: 100%;
+        height: 2.14rem;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 0 0.15rem;
+        .title {
+          height: .45rem;
+          line-height: .45rem;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+          font-size: .15rem;
+        }
+        .list {
 
+          height: 1.69rem;
+          font-size: .14rem;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-content: space-between;
+          padding-bottom: .15rem;
+          text-align: center;
+          .active {
+            background-color: #FACCCF;
+            color: #e40011;
+            border: 1px solid #e40011;
+          }
+          li {
+            width: 1rem;
+            height: .7rem;
+            background-color: #f3f3f3;
+            img {
+              width: 1rem;
+              padding: .17rem;
+              padding-bottom: 0;
+            }
+          }
+        }
+      }
+      .a-b-pay, .a-b-payMonthly {
+        height: 1.54rem;
+        border-bottom: 1px solid #cccccc;
+        padding: 0 0.15rem;
+        .title {
+          height: .45rem;
+          line-height: .45rem;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+          font-size: .15rem;
+        }
+        .list {
+          height: 1.09rem;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-content: space-between;
+          padding-bottom: .15rem;
+          text-align: center;
+          border: 0;
+          .active {
+            background-color: #FACCCF;
+            color: #e40011;
+            border: 1px solid #e40011;
+          }
+          li {
+            width: 1rem;
+            height: .4rem;
+            line-height: .4rem;
+            background-color: #f3f3f3;
+          }
+        }
+      }
+      .a-b-payMonthly {
+        border: 0;
+        //margin-bottom: .5rem;
+       // padding-bottom: .5rem;
+      }
+    }
+    .all-footer {
+      z-index: 15;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.5rem;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      p {
+        width: 2.5rem;
+        background-color: #fff;
+        text-align: center;
+        line-height: .5rem;
+        font-size: .17rem;
+        color: #333333;
+        border-top: 1px solid #cccccc;
+      }
+      button {
+        width: 1.26rem;
+        height: .5rem;
+        background-color: #e40011;
+        color: #ffffff;
+        font-size: .17rem;
+        line-height: .5rem;
+        text-align: center;
+      }
+    }
   }
 }

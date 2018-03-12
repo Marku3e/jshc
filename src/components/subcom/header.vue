@@ -6,7 +6,8 @@
     </div>
     <router-link class="search" :to="'search/new'">
       <span class='iconfont icon-search '></span>
-      <i>想买什么车？</i>
+      <!--<i>想买什么车？</i> -->
+      <i>{{searchKey||'想买什么车?'}}</i>
     </router-link>
     <div class="option">
       <span label="undocked drawer" @click="toggle(true)" class='iconfont icon-bars'></span>
@@ -16,15 +17,17 @@
             <router-link :to="'/'">首页</router-link>
           </li>
           <li>
-            <router-link :to="{path:'/newcar',query:{isNewCar:true,size:5,page:1,orderType:1}}">买新车</router-link>
+            <router-link :to="{path:'/newcar',query:{isNewCar:true,size:10,page:1,orderType:1,cityId:18}}">买新车
+            </router-link>
           </li>
           <li>
-            <router-link :to="'/usedcar'">买二手车</router-link>
+            <router-link :to="{path:'/usedcar',query:{isNewCar:false,size:10,page:1,orderType:1,cityId:18}}">买二手车
+            </router-link>
           </li>
           <div class="bb"></div>
-          <li>
-            <router-link :to="'/demo'">优惠车型</router-link>
-          </li>
+          <!--<li>-->
+          <!--<router-link :to="'/ndemo'">优惠车型</router-link>-->
+          <!--</li>-->
           <li>
             <router-link :to="'/appointment'">我要提车</router-link>
           </li>
@@ -35,7 +38,7 @@
         </ul>
       </mu-drawer>
     </div>
-    <mt-popup v-model="popupVisible" popup-transition="popup-fade">
+    <mt-popup v-model="popupVisible" popup-transition="popup-fade" :modal=false>
       <div class="c-header" v-show=!open2>
         <span class="iconfont icon-back" @click='hidebox()'></span>
         选择地区
@@ -43,7 +46,7 @@
       <div class="c-body">
         <mt-index-list>
           <mt-index-section index="*">
-            <div @click="picker($event)">
+            <div @click="getcity('全国',null)">
               <mt-cell title="全国"></mt-cell>
             </div>
           </mt-index-section>
@@ -108,13 +111,15 @@
         docked: true,
         provlist: [],
         citylist: [],
-        provname: '',
+        provname: '武汉',
         titlename: '',
+        searchKey: '',
       }
     },
     created() {
-      this.$route.query;
-      this.provname = localStorage.getItem("cityname")
+      console.log(this.$route.query);
+      this.searchKey = this.$route.query.searchKey
+      this.provname = localStorage.getItem("cityname") || "武汉"
     },
     methods: {
       getcity(name, id) {
@@ -127,8 +132,8 @@
             "isNewCar": true,
             "size": '10',
             "page": '1',
-            "provId": id,
-            "orderType": 1,
+            "cityId": id,
+            "orderType": '1',
           }
         })
         this.popupVisible = false
@@ -150,7 +155,7 @@
           } else {
             this.open2 = false
             localStorage.setItem("cityname", res.data.data[0].prov_name)
-            // let url = this.$common.baseUrl + '/car/source/getCarPriceList'
+            // let url = this.$common.baseUrl + '/car/source/wx/getCarPriceList'
             // this.$axios.post(url + '?isNewCar=true&size=5&page=1&provId=' + id + '&orderType=1').then(res => {
             //   console.log(res);
             // })
@@ -160,7 +165,7 @@
                 "isNewCar": true,
                 "size": '10',
                 "page": '1',
-                "provId": id,
+                "cityId": id,
                 "orderType": 1,
               }
             })
@@ -177,7 +182,7 @@
       },
       openCity() {
         this.popupVisible = !this.popupVisible
-        let url = this.$common.baseUrl + '/car/source/getAreaList'
+        let url = this.$common.baseUrl + '/car/source/wx/getAreaList'
         this.$axios.post(url)
           .then(res => {
             console.log(res);

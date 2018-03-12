@@ -9,28 +9,34 @@ import newSearch from '@/components/search/newSearch'
 import usedSearch from '@/components/search/usedSearch'
 import appointment from '@/components/appointment/appointment'
 import aboutus from '@/components/aboutus/aboutus'
-import demo from  "@/components/demo"
-import login from  "@/components/login/login"
-import store from  "@/components/store/store"
-import success from  "@/components/login/success"
+import ndemo from '@/components/newcar/demo'
+import login from "@/components/login/login"
+import store from "@/components/store/store"
+import success from "@/components/login/success"
 
 Vue.use(Router)
 
 export default new Router({
+  // mode: 'history',
+  mode: 'hash',
+  base: '/wx/',
   routes: [
-    {path: '/', name: 'home', component: home},
-    {path: '/home', name: 'home', component: home},
-    {path: '/newcar', name: 'newcar', component: newcar},
-    {path: '/newcar/detail/:id', name: 'newdetail', component: newdetail},
-    {path: '/usedcar/detail/:id', name: 'useddetail', component: useddetail},
-    {path: '/usedcar', name: 'usedcar', component: usedcar},
-    {path: '/search/new', name: 'newSearch', component: newSearch},
-    {path: '/search/used', name: 'usedSearch', component: usedSearch},
-    {path: '/appointment', name: 'appointment', component: appointment},
-    {path: '/aboutus', name: 'aboutus', component: aboutus},
-    {path: '/login', name: 'login', component: login},
-    {path: '/demo', name: 'demo', component: demo},
-    {path: '/store', name: 'store', component: store},
-    {path: '/success', name: 'success', component: success},
-  ]
+    {
+      path: '', name: 'index', component: home, meta: {title: '好提车'}
+    },
+    {path: '/home', name: 'home', component: home, meta: {title: '好提车'}},
+    {path: '/newcar', name: 'newcar', component: newcar, meta: {title: '新车'}},
+    {path: '/newcar/detail/:id', name: 'newdetail', component: newdetail, meta: {title: '好提车'}},
+    {path: '/usedcar/detail/:id', name: 'useddetail', component: useddetail, meta: {title: '好提车'}},
+    {path: '/usedcar', name: 'usedcar', component: usedcar, meta: {title: '二手车'}},
+    {path: '/search/new', name: 'newSearch', component: newSearch, meta: {title: '好提车'}},
+    {path: '/search/used', name: 'usedSearch', component: usedSearch, meta: {title: '好提车'}},
+    {path: '/appointment', name: 'appointment', component: appointment, meta: {title: '九盛好车'}},
+    {path: '/aboutus', name: 'aboutus', component: aboutus, meta: {title: '关于我们'}},
+    {path: '/login/:id', name: 'login', component: login, meta: {title: '好提车'}},
+    {path: '/store', name: 'store', component: store, meta: {title: '全部门店'}},
+    {path: '/success', name: 'success', component: success, meta: {title: '好提车'}},
+    {path: '/ndemo', name: 'ndemo', component: ndemo, meta: {title: '好提车'}},
+  ],
+
 })

@@ -14,15 +14,15 @@
               <router-link :to="'/home'">首页</router-link>
             </li>
             <li>
-              <router-link :to="'/newcar'">买新车</router-link>
+              <router-link :to="{path:'/newcar',query:{isNewCar:true,size:10,page:1,orderType:1}}">买新车</router-link>
             </li>
             <li>
-              <router-link :to="'/usedcar'">买二手车</router-link>
+              <router-link :to="{path:'/usedcar',query:{isNewCar:false,size:10,page:1,orderType:1}}">买二手车</router-link>
             </li>
             <div class="bb"></div>
-            <li>
-              <router-link :to="'/demo'">优惠车型</router-link>
-            </li>
+            <!--<li>-->
+            <!--<router-link :to="'/demo'">优惠车型</router-link>-->
+            <!--</li>-->
             <li>
               <router-link :to="'/appointment'">我要提车</router-link>
             </li>
@@ -35,15 +35,14 @@
       </div>
     </div>
     <mt-swipe :auto="3000">
-      <mt-swipe-item>1</mt-swipe-item>
-      <mt-swipe-item>2</mt-swipe-item>
-      <mt-swipe-item>3</mt-swipe-item>
-      <mt-swipe-item>4</mt-swipe-item>
-      <mt-swipe-item>5</mt-swipe-item>
+      <mt-swipe-item v-for="(item,index) in carDetail.imgList"><img :src="item" alt=""></mt-swipe-item>
     </mt-swipe>
+    <!--<div>-->
+    <!--暂无数据-->
+    <!--</div>-->
     <div class="carMsg">
-      <h4>东风 日产轩逸 1.6L 自动经典舒适版</h4>
-      <p>指导价27.98万</p>
+      <h4>{{carDetail.modelName}}</h4>
+      <p>指导价{{carDetail.price}}万</p>
     </div>
     <div class="b-line"></div>
     <div class="plan">
@@ -52,15 +51,15 @@
       <div class="p-info">
         <div>
           <p>期数</p>
-          <p>36</p>
+          <p>{{carDetail.term}}期</p>
         </div>
         <div>
-          <p>提车价</p>
-          <p>¥16470.00</p>
+          <p>首付</p>
+          <p>{{carDetail.firstPay}}万</p>
         </div>
         <div>
           <p>月供</p>
-          <p>¥3259.00</p>
+          <p>{{carDetail.monthRepay}}元</p>
         </div>
       </div>
     </div>
@@ -81,31 +80,29 @@
           <div class="bb"></div>
           <div class="d-info">
             <ul>
-              <li><span>车身结构</span><i>4门5座三厢车</i></li>
-              <li><span>长/宽/高</span><i>4442/1748/1476mm</i></li>
-              <li><span>发动机</span> <i>1.6L 117马力 L4</i></li>
-              <li><span>变速箱</span> <i>6档手自一体</i></li>
-              <li><span>驱动方式</span><i>前置前驱</i></li>
-              <li><span>燃料形式</span><i>-</i></li>
-              <li><span>综合油耗</span><i>6.50L/100km(工信部)</i></li>
-              <li><span>车辆配色</span><i>外观白色+内饰深色</i></li>
+              <li><span>车身结构</span><i>{{carDetail.structure}}</i></li>
+              <li><span>长/宽/高</span><i>{{carDetail.size}}</i></li>
+              <li><span>发动机</span> <i>{{carDetail.engine}}</i></li>
+              <li><span>变速箱</span> <i>{{carDetail.gearbox}}</i></li>
+              <li><span>驱动方式</span><i>{{carDetail.drive}}</i></li>
+              <li><span>燃料形式</span><i>{{carDetail.fuel}}</i></li>
+              <li><span>综合油耗</span><i>{{carDetail.consumption}}</i></li>
+              <li><span>车辆配色</span><i>{{carDetail.color?carDetail.color:"-"}}</i></li>
             </ul>
           </div>
         </div>
         <div class="adv">
           <div class="a-tit">车型亮点</div>
-          <div class="a-info">
-            <img
-              src="https://img.souche.com/9b38c53187733dfde1ae53b6bc5ec424.JPG?x-oss-process=image/resize,m_fill,w_1916,h_1277"
+          <div class="a-info" v-for='(item,index) in carDetail.imgList'>
+            <img :src="item"
               alt="">
-            <p>这是一款极具性价比的SUV车型,空间大配置高,怎么看都是这个价位的绝佳之选……</p>
+            <p>{{carDetail.content[index]}}</p>
           </div>
-          <div class="a-info">
-            <img
-              src="https://img.souche.com/9b38c53187733dfde1ae53b6bc5ec424.JPG?x-oss-process=image/resize,m_fill,w_1916,h_1277"
-              alt="">
-            <p>这是一款极具性价比的SUV车型,空间大配置高,怎么看都是这个价位的绝佳之选……</p>
-          </div>
+          <!--<div class="a-info">-->
+            <!--<img src="https://img.souche.com/9b38c53187733dfde1ae53b6bc5ec424.JPG?x-oss-process=image/resize,m_fill,w_1916,h_1277"-->
+              <!--alt="">-->
+            <!--<p>这是一款极具性价比的SUV车型,空间大配置高,怎么看都是这个价位的绝佳之选……</p>-->
+          <!--</div>-->
         </div>
       </mt-tab-container-item>
       <mt-tab-container-item v-bind:id="2">
@@ -138,7 +135,7 @@
         <span class='iconfont icon-dianhuazhengzaibohao'></span>
         <i>咨询</i>
       </div>
-      <router-link class="appointment" :to="'/login'">
+      <router-link class="appointment" v-bind="{to:'/login/'+id}">
         预约到店
       </router-link>
     </div>
@@ -146,19 +143,23 @@
 </template>
 
 <script>
-  import { MessageBox } from 'mint-ui';
+  import {MessageBox} from 'mint-ui';
+
   export default {
     name: "detail",
     data() {
       return {
+        carDetail: "",
         open: false,
         docked: true,
         selected: 1,
-        id:-1,
+        id: -1,
       }
     },
     created() {
-      this.id=this.$route.params.id
+     this.id =  this.$route.params.id.split("&")
+      // this.id = this.$route.params.id
+      //console.log(this.id[0]+'----'+this.id[1]);
       this.getCarInfo()
     },
     methods: {
@@ -166,16 +167,32 @@
         this.open = !this.open
         this.docked = !flag
       },
-     getCarInfo(){
+      getCarInfo() {
         let that = this
-       console.log(that.id);
-     },
-      call(){
-        MessageBox({
-          title: '400-680-8020',
-          message: '  ',
-          showCancelButton: true
-        });
+       // console.log(that.id);
+        let url = this.$common.baseUrl + '/car/source/wx/getCarDetail';
+        this.$axios.post(url + '?modelId=' + that.id[0] + '&carSourceId='+that.id[1]).then(function (res) {
+          console.log(res);
+          that.carDetail = res.data.data
+
+         // console.log(that.carDetail.imgList);
+
+        })
+      },
+      call() {
+        // MessageBox({
+        //   title: '400-680-8020',
+        //   message: '  ',
+        //   showCancelButton: true
+        // });
+        // MessageBox.confirm('确定执行此操作?').then(action => {
+          // let u = navigator.userAgent;
+          // let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+          // let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+          // console.log("android终端" + isAndroid);
+          // console.log("ios终端" + isiOS);
+          window.location.href = "tel:400-680-8020";
+        // });
       }
     }
   }

@@ -16,8 +16,16 @@ Vue.prototype.$Toast = Toast;
 import Mint from "mint-ui"
 import './assets/css/mint.css'
 
+import moment from 'moment'
+
+Vue.filter('datefmt', function (input, fmystring) {
+  //使用全局的moment
+  return moment(input).format(fmystring)
+})
+
+
 Vue.use(Mint)
-import { Swipe, SwipeItem } from 'mint-ui';
+import {Swipe, SwipeItem} from 'mint-ui';
 
 Vue.component("mt-swipe", Swipe);
 Vue.component("mt-swipeItem", SwipeItem);
@@ -33,6 +41,8 @@ import "./assets/css/subcom.css"
 
 Vue.config.productionTip = false
 
+import VueWechatTitle from 'vue-wechat-title'
+Vue.use(VueWechatTitle)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -4,47 +4,38 @@
   border-bottom: 1px solid #e5e5e5;
   display: flex;
   flex-flow: row nowrap;
-  padding: 10px 15px;
+  padding: .1rem .15rem;
   position: relative;
 }
 #carlist .filter div {
   width: 25%;
-  font-size: 14px;
+  font-size: .14rem;
   color: #333333;
   text-align: center;
-  line-height: 24px;
+  line-height: .24rem;
 }
 #carlist .filter div .icon-down {
-  font-size: 10px;
+  font-size: .1rem;
 }
 #carlist .filter div .icon-filter {
   font-weight: 700;
   color: #000;
 }
+#carlist .filter .red {
+  color: #e40011;
+}
 #carlist .filter .def {
   text-align: left;
 }
+#carlist .filter .def .rotate {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
 #carlist .filter .all {
   text-align: right;
-}
-#carlist .filter .deflist {
-  z-index: 10;
-  width: 100vw;
-  height: 3.5rem;
-  background-color: #fff;
-  position: absolute;
-  top: 0.42rem;
-  left: 0;
-  padding-left: 0.15rem;
-  border-bottom: 1px solid #e5e5e5;
-}
-#carlist .filter .deflist li {
-  height: 0.5rem;
-  border-bottom: 1px solid #e5e5e5;
-  line-height: 0.5rem;
-}
-#carlist .filter .deflist .v-modal {
-  top: 100px;
 }
 #carlist .filter .mint-popup-top {
   width: 100vw;
@@ -52,7 +43,9 @@
   top: 0.92rem;
 }
 #carlist .filter .active {
+  background-color: #FACCCF;
   color: #e40011;
+  border: 1px solid #e40011;
 }
 #carlist .icon-duigou {
   margin-right: 0.2rem;
@@ -63,10 +56,101 @@
   width: 100vw;
   height: 100vh;
   position: absolute;
-  top: 1rem;
+  top: 0.92rem;
   left: 0;
   z-index: 8;
   background-color: rgba(0, 0, 0, 0.3);
+}
+#carlist .layout .deflist,
+#carlist .layout .carBrand {
+  z-index: 10;
+  width: 100vw;
+  height: 3.5rem;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  padding-left: 0.15rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+#carlist .layout .deflist .icon-duigou,
+#carlist .layout .carBrand .icon-duigou {
+  color: #ffffff;
+}
+#carlist .layout .deflist .redduigou,
+#carlist .layout .carBrand .redduigou {
+  color: #e40011;
+}
+#carlist .layout .deflist li,
+#carlist .layout .carBrand li {
+  height: 0.5rem;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 0.5rem;
+}
+#carlist .layout .deflist img,
+#carlist .layout .carBrand img {
+  width: 0.25rem;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+#carlist .layout .deflist .v-modal,
+#carlist .layout .carBrand .v-modal {
+  top: 100px;
+}
+#carlist .layout .payBox {
+  z-index: 10;
+  width: 100vw;
+  height: 1.26rem;
+  background-color: #fff;
+  padding: 0.15rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+#carlist .layout .payBox li {
+  width: 1rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  text-align: center;
+  font-size: 0.14rem;
+  color: #666666;
+  background-color: #f3f3f3;
+}
+#carlist .layout .payBox .f-active {
+  background-color: #FACCCF;
+  color: #e40011;
+  border: 1px solid #e40011;
+}
+#carlist .carBrand {
+  overflow-y: auto;
+  z-index: 10;
+  width: 100vw;
+  height: 3.5rem;
+  background-color: #fff;
+  position: absolute;
+  top: 0.92rem;
+  left: 0;
+  padding-left: 0.15rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+#carlist .carBrand .icon-duigou {
+  color: #ffffff;
+}
+#carlist .carBrand .redduigou {
+  color: #e40011;
+}
+#carlist .carBrand li {
+  height: 0.5rem;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 0.5rem;
+}
+#carlist .carBrand img {
+  width: 0.25rem;
+  vertical-align: middle;
+  margin-right: 0.2rem;
+}
+#carlist .carBrand .v-modal {
+  top: 100px;
 }
 #carlist .car_msg {
   width: 100%;
@@ -80,7 +164,7 @@
 #carlist .car_msg .carImg {
   width: 0.8rem;
   height: 0.7rem;
-  margin: 20px 20px 0 0;
+  margin: .2rem .2rem 0 0;
 }
 #carlist .car_msg .carImg img {
   height: 100%;
@@ -89,14 +173,14 @@
   padding-top: 0.1rem;
 }
 #carlist .car_msg .car_detailed h4 {
-  ont-size: 17px;
-  line-height: 27px;
+  ont-size: 0.17rem;
+  line-height: 0.27rem;
   margin: 0;
   font-weight: 700;
 }
 #carlist .car_msg .car_detailed p {
-  font-size: 14px;
-  line-height: 23px;
+  font-size: .14rem;
+  line-height: .23rem;
   margin: 0;
   font-weight: bold;
   width: 2.38rem;
@@ -106,18 +190,179 @@
   color: #000;
 }
 #carlist .car_msg .car_detailed span {
-  font-size: 12px;
-  line-height: 22px;
+  font-size: .12rem;
+  line-height: .22rem;
   margin: 0;
   color: #666666;
   display: block;
 }
 #carlist .car_msg .car_detailed i {
-  font-size: 12px;
+  font-size: .12rem;
   margin: 0;
   color: #e40011;
   display: block;
 }
-#carlist .no-scroll {
-  overflow-y: hidden;
+#carlist .mint-popup {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  -webkit-transform: none;
+  transform: none;
+  z-index: 144;
+  padding-bottom: .5rem;
+}
+#carlist .mint-popup .all-header {
+  width: 100%;
+  height: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  top: 0;
+  left: 0;
+  line-height: .5rem;
+  z-index: 15;
+}
+#carlist .mint-popup .all-header .a-h-left {
+  width: .5rem;
+  height: .5rem;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-left: .16rem;
+}
+#carlist .mint-popup .all-header .a-h-left span {
+  font-size: .2rem;
+}
+#carlist .mint-popup .all-header .a-h-midden {
+  margin: 0 0.5rem;
+  height: .5rem;
+  text-align: center;
+  font-size: .17rem;
+}
+#carlist .mint-popup .all-header .a-h-right {
+  width: .5rem;
+  height: .5rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: .14rem;
+  color: #e40011;
+  text-align: center;
+}
+#carlist .mint-popup .all-body {
+  margin-top: .5rem;
+}
+#carlist .mint-popup .all-body .a-b-price {
+  height: 1.23rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+#carlist .mint-popup .all-body .a-b-type {
+  width: 100%;
+  height: 2.14rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 0.15rem;
+}
+#carlist .mint-popup .all-body .a-b-type .title {
+  height: .45rem;
+  line-height: .45rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: .15rem;
+}
+#carlist .mint-popup .all-body .a-b-type .list {
+  height: 1.69rem;
+  font-size: .14rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  padding-bottom: .15rem;
+  text-align: center;
+}
+#carlist .mint-popup .all-body .a-b-type .list .active {
+  background-color: #FACCCF;
+  color: #e40011;
+  border: 1px solid #e40011;
+}
+#carlist .mint-popup .all-body .a-b-type .list li {
+  width: 1rem;
+  height: .7rem;
+  background-color: #f3f3f3;
+}
+#carlist .mint-popup .all-body .a-b-type .list li img {
+  width: 1rem;
+  padding: .17rem;
+  padding-bottom: 0;
+}
+#carlist .mint-popup .all-body .a-b-pay,
+#carlist .mint-popup .all-body .a-b-payMonthly {
+  height: 1.54rem;
+  border-bottom: 1px solid #cccccc;
+  padding: 0 0.15rem;
+}
+#carlist .mint-popup .all-body .a-b-pay .title,
+#carlist .mint-popup .all-body .a-b-payMonthly .title {
+  height: .45rem;
+  line-height: .45rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  font-size: .15rem;
+}
+#carlist .mint-popup .all-body .a-b-pay .list,
+#carlist .mint-popup .all-body .a-b-payMonthly .list {
+  height: 1.09rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  padding-bottom: .15rem;
+  text-align: center;
+  border: 0;
+}
+#carlist .mint-popup .all-body .a-b-pay .list .active,
+#carlist .mint-popup .all-body .a-b-payMonthly .list .active {
+  background-color: #FACCCF;
+  color: #e40011;
+  border: 1px solid #e40011;
+}
+#carlist .mint-popup .all-body .a-b-pay .list li,
+#carlist .mint-popup .all-body .a-b-payMonthly .list li {
+  width: 1rem;
+  height: .4rem;
+  line-height: .4rem;
+  background-color: #f3f3f3;
+}
+#carlist .mint-popup .all-body .a-b-payMonthly {
+  border: 0;
+}
+#carlist .mint-popup .all-footer {
+  z-index: 15;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.5rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+#carlist .mint-popup .all-footer p {
+  width: 2.5rem;
+  background-color: #fff;
+  text-align: center;
+  line-height: .5rem;
+  font-size: .17rem;
+  color: #333333;
+  border-top: 1px solid #cccccc;
+}
+#carlist .mint-popup .all-footer button {
+  width: 1.26rem;
+  height: .5rem;
+  background-color: #e40011;
+  color: #ffffff;
+  font-size: .17rem;
+  line-height: .5rem;
+  text-align: center;
 }

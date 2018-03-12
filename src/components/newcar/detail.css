@@ -1,3 +1,6 @@
+#detail {
+  overflow-x: hidden;
+}
 #detail .header {
   width: 100%;
   height: 0.5rem;
@@ -5,7 +8,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: .14rem;
 }
 #detail .logo {
   width: 0.3rem;
@@ -22,35 +25,55 @@
 #detail .option {
   width: 0.8rem;
   line-height: 0.5rem;
-  text-align: center;
+  text-align: right;
+  padding-right: .15rem;
 }
 #detail .option .iconfont {
-  font-size: 24px;
+  font-size: .24rem;
 }
 #detail .option ul {
   text-align: left;
-  padding-top: 10px;
+  padding-top: .1rem;
 }
 #detail .option ul li {
-  padding-left: 20px;
-  font-size: 14px;
-  line-height: 34px;
+  padding-left: .2rem;
+  font-size: .14rem;
+  line-height: .34rem;
+}
+#detail .option ul li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#detail .mint-swipe-item {
+  color: #fff;
+  text-align: center;
+}
+#detail .mint-swipe-item img {
+  width: 100%;
+  height: 100%;
+}
+#detail .mint-tab-item {
+  margin: 0 .5rem;
+}
+#detail .mint-tab-item .mint-tab-item-label {
+  font-size: .16rem;
+  line-height: .45rem;
 }
 #detail .carMsg {
   width: 100%;
-  height: 0.5rem;
-  padding: 0 15px;
-  padding-top: 8px;
+  padding: 0 .15rem;
+  padding-top: .08rem;
 }
 #detail .carMsg h4 {
-  font-size: 14px;
+  font-size: .15rem;
   color: #333333;
-  line-height: 20px;
+  line-height: .2rem;
 }
 #detail .carMsg p {
-  font-size: 12px;
+  font-size: .12rem;
   color: #e40011;
-  line-height: 18px;
+  line-height: .2rem;
 }
 #detail .plan {
   width: 100%;
@@ -60,32 +83,33 @@
 }
 #detail .plan .p-tit {
   width: 100%;
-  border-left: 2px solid #e40011;
+  border-left: .02rem solid #e40011;
   font-size: 16px;
   color: #333333;
-  margin: 10px 0;
-  padding-left: 15px;
-  line-height: 18px;
+  margin: .1rem 0;
+  padding-left: .15rem;
+  line-height: .18rem;
 }
 #detail .plan .p-info {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   text-align: center;
-  padding: 0 30px;
+  padding: .1rem .3rem 0;
 }
 #detail .plan .p-info p {
-  font-size: 14px;
+  font-size: .14rem;
   color: #666666;
 }
 #detail .plan .p-info p:nth-last-of-type(1) {
   color: #e40011;
   font-weight: 700;
+  margin-top: .08rem;
 }
 #detail .youhui {
   width: 100%;
   height: 0.5rem;
-  padding: 10px 22px 10px 15px;
+  padding: .1rem .22rem .1rem .15rem;
   display: flex;
   flex-flow: row nowrap;
 }
@@ -93,15 +117,17 @@
   border: 1px solid #e40011;
   font-size: 12px;
   color: #e40011;
-  line-height: 15px;
+  line-height: .18rem;
   width: 30px;
-  height: 18px;
+  height: .18rem;
   margin-top: 0.06rem;
+  border-radius: .03rem;
+  text-align: center;
 }
 #detail .youhui .yh-txt {
   width: 100%;
   height: 100%;
-  font-size: 14px;
+  font-size: .14rem;
   color: #666666;
   line-height: 0.17rem;
   padding-left: 0.15rem;
@@ -109,16 +135,16 @@
 #detail .product-adv {
   width: 100%;
   box-sizing: border-box;
-  padding-bottom: 10px;
+  padding-bottom: .1rem;
 }
 #detail .product-adv .p-tit {
   width: 100%;
-  border-left: 2px solid #e40011;
-  font-size: 16px;
+  border-left: .02rem solid #e40011;
+  font-size: .16rem;
   color: #333333;
-  margin: 10px 0;
-  padding-left: 15px;
-  line-height: 18px;
+  margin: .10rem 0;
+  padding-left: .15rem;
+  line-height: .18rem;
 }
 #detail .product-adv .pro-info {
   display: flex;
@@ -129,11 +155,12 @@
 #detail .product-adv .pro-info div {
   width: 1rem;
   height: 1rem;
-  -webkit-background-size: cover;
-  background-size: cover;
-  margin: 10px 0;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: .10rem 0;
   padding-top: 0.55rem;
-  font-size: 12px;
+  font-size: .12rem;
   line-height: 0.18rem;
   text-align: center;
   color: #666666;
@@ -154,31 +181,36 @@
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid #e5e5e5;
-  padding-bottom: 10px;
+  padding-bottom: .1rem;
 }
 #detail .default .d-tit {
   width: 100%;
-  border-left: 2px solid #e40011;
-  font-size: 16px;
+  border-left: .02rem solid #e40011;
+  font-size: .16rem;
   color: #333333;
-  margin: 10px 0;
-  padding-left: 15px;
-  line-height: 18px;
+  margin: .1rem 0;
+  padding-left: .15rem;
+  line-height: .18rem;
 }
 #detail .default .d-info {
   height: 1.8rem;
-  padding: 0 30px;
+  padding: 0 .3rem;
 }
-#detail .default .d-info li {
+#detail .default .d-info ul {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+#detail .default .d-info ul li {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  margin: 5px 0;
+  font-size: .12rem;
+  margin: .05rem 0;
 }
-#detail .default .d-info li span {
+#detail .default .d-info ul li span {
   color: #888888;
 }
-#detail .default .d-info li i {
+#detail .default .d-info ul li i {
   color: #333333;
 }
 #detail .adv {
@@ -187,12 +219,12 @@
 }
 #detail .adv .a-tit {
   width: 100%;
-  border-left: 2px solid #e40011;
-  font-size: 16px;
+  border-left: .02rem solid #e40011;
+  font-size: .16rem;
   color: #333333;
-  margin: 10px 0;
-  padding-left: 15px;
-  line-height: 18px;
+  margin: .1rem 0;
+  padding-left: .15rem;
+  line-height: .18rem;
 }
 #detail .adv .a-info {
   width: 100%;
@@ -201,8 +233,8 @@
   width: 100%;
 }
 #detail .adv .a-info p {
-  padding: 0 16px;
-  margin: 5px 0;
+  padding: 0 .16rem;
+  margin: .5rem 0;
 }
 #detail .footer {
   width: 100%;
@@ -220,11 +252,11 @@
 }
 #detail .footer .call {
   width: 100%;
-  font-size: 18px;
+  font-size: .18rem;
   color: #333333;
 }
 #detail .footer .call span {
-  font-size: 24px;
+  font-size: .24rem;
   color: #e40011;
   vertical-align: sub;
 }
@@ -233,5 +265,5 @@
   min-width: 2.5rem;
   background-color: #e40011;
   color: #fff;
-  font-size: 18px;
+  font-size: .18rem;
 }

@@ -14,20 +14,20 @@
               <router-link :to="'/'">首页</router-link>
             </li>
             <li>
-              <router-link :to="'newcar'">买新车</router-link>
+              <router-link :to="{path:'/newcar',query:{isNewCar:true,size:10,page:1,orderType:1}}">买新车</router-link>
             </li>
             <li>
-              <router-link :to="'usedcar'">买二手车</router-link>
+              <router-link :to="{path:'/usedcar',query:{isNewCar:false,size:10,page:1,orderType:1}}">买二手车</router-link>
             </li>
             <div class="bb"></div>
+            <!--<li>-->
+            <!--<router-link :to="'/demo'">优惠车型</router-link>-->
+            <!--</li>-->
             <li>
-              <router-link :to="'demo'">优惠车型</router-link>
+              <router-link :to="'/appointment'">我要提车</router-link>
             </li>
             <li>
-              <router-link :to="'appointment'">我要提车</router-link>
-            </li>
-            <li>
-              <router-link :to="'aboutus'">关于九盛好车</router-link>
+              <router-link :to="'/aboutus'">关于九盛好车</router-link>
             </li>
             <div class="bb"></div>
           </ul>
@@ -35,15 +35,11 @@
       </div>
     </div>
     <mt-swipe :auto="3000">
-      <mt-swipe-item>1</mt-swipe-item>
-      <mt-swipe-item>2</mt-swipe-item>
-      <mt-swipe-item>3</mt-swipe-item>
-      <mt-swipe-item>4</mt-swipe-item>
-      <mt-swipe-item>5</mt-swipe-item>
+      <mt-swipe-item v-for="(item,index) in carDetail.imgList"><img :src="item" alt=""></mt-swipe-item>
     </mt-swipe>
     <div class="carMsg">
-      <h4>东风 日产轩逸 1.6L 自动经典舒适版</h4>
-      <p>指导价27.98万</p>
+      <h4>{{carDetail.modelName}}</h4>
+      <p>指导价{{carDetail.price}}万</p>
     </div>
     <div class="b-line"></div>
     <div class="plan">
@@ -52,15 +48,15 @@
       <div class="p-info">
         <div>
           <p>期数</p>
-          <p>36</p>
+          <p>{{carDetail.term}}期</p>
         </div>
         <div>
-          <p>提车价</p>
-          <p>¥16470.00</p>
+          <p>首付</p>
+          <p>{{carDetail.firstPay}}万</p>
         </div>
         <div>
           <p>月供</p>
-          <p>¥3259.00</p>
+          <p>{{carDetail.monthRepay}}元</p>
         </div>
       </div>
     </div>
@@ -81,27 +77,27 @@
           <div class="bb"></div>
           <div class="d-info">
             <ul>
-              <li><span>表显里程</span><i>5.65万公里</i></li>
-              <li><span>初次上牌</span><i>2015年03月</i></li>
-              <li><span>所在地</span> <i>佛山</i></li>
-              <li><span>排放标准</span> <i>国五</i></li>
-              <li><span>变速箱</span><i>DSG-双离合</i></li>
-              <li><span>排量</span><i>1.4L</i></li>
+              <li><span>表显里程</span><i>{{carDetail.mile}}万公里</i></li>
+              <li><span>初次上牌</span><i>{{carDetail.plateTime?carDetail.plateTime:"-"}}</i></li>
+              <li><span>所在地</span> <i>{{carDetail.city}}</i></li>
+              <li><span>排放标准</span> <i>{{carDetail.dischargeStandard}}</i></li>
+              <li><span>变速箱</span><i>{{carDetail.gearbox}}</i></li>
+              <li><span>排量</span><i>{{carDetail.liter?carDetail.liter:"-"}}</i></li>
             </ul>
           </div>
         </div>
         <div class="adv">
           <div class="a-tit">车辆实拍</div>
-          <div class="a-info">
+          <div class="a-info" v-for="(item,index) in carDetail.imgList">
             <img
-              src="https://img.souche.com/9b38c53187733dfde1ae53b6bc5ec424.JPG?x-oss-process=image/resize,m_fill,w_1916,h_1277"
+              :src="item"
               alt="">
           </div>
-          <div class="a-info">
-            <img
-              src="https://img.souche.com/9b38c53187733dfde1ae53b6bc5ec424.JPG?x-oss-process=image/resize,m_fill,w_1916,h_1277"
-              alt="">
-          </div>
+          <!--<div class="a-info">-->
+          <!--<img-->
+          <!--src="https://img.souche.com/9b38c53187733dfde1ae53b6bc5ec424.JPG?x-oss-process=image/resize,m_fill,w_1916,h_1277"-->
+          <!--alt="">-->
+          <!--</div>-->
         </div>
       </mt-tab-container-item>
       <mt-tab-container-item v-bind:id="2">
@@ -130,36 +126,67 @@
       </mt-tab-container-item>
     </mt-tab-container>
     <div class="footer">
-      <div class="call">
+      <div class="call" @click='call()'>
         <span class='iconfont icon-dianhuazhengzaibohao'></span>
         <i>咨询</i>
       </div>
-      <div class="appointment">
+      <router-link class="appointment" v-bind="{to:'/login/'+id}">
         预约到店
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
+  import {MessageBox} from 'mint-ui';
 
   export default {
     name: "detail",
     data() {
       return {
+        carDetail: "",
         open: false,
         docked: true,
         selected: 1,
+        id: -1,
       }
     },
     created() {
-
+      this.id = this.$route.params.id.split('&')
+      this.getCarInfo()
     },
     methods: {
       toggle(flag) {
         this.open = !this.open
         this.docked = !flag
       },
+      getCarInfo() {
+        let that = this
+        console.log(that.id);
+        let url = this.$common.baseUrl + '/car/source/wx/getCarDetail';
+        this.$axios.post(url + '?modelId=' + that.id[0] + '&carSourceId=' + that.id[1]).then(function (res) {
+          console.log(res);
+          that.carDetail = res.data.data
+
+          // console.log(that.carDetail.imgList);
+
+        })
+      },
+      call() {
+        // MessageBox({
+        //   title: '400-680-8020',
+        //   message: '  ',
+        //   showCancelButton: true
+        // });
+        // MessageBox.confirm('确定执行此操作?').then(action => {
+        // let u = navigator.userAgent;
+        // let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        // let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        // console.log("android终端" + isAndroid);
+        // console.log("ios终端" + isiOS);
+        window.location.href = "tel:400-680-8020";
+        // });
+      }
     }
   }
 </script>

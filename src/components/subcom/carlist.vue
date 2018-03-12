@@ -31,7 +31,7 @@
     },
     methods: {
       getNewcar() {
-        let url = this.$common.baseUrl + "/car/source/getCarPriceList";
+        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
         let that = this
         this.$axios.post(url, that.newData)
           .then(function (res) {

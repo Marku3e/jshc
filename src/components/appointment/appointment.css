@@ -6,6 +6,17 @@
   -webkit-background-size: 100vw 100vh;
   background-size: 100vw 100vh;
 }
+#appointment .content .android {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 144;
+}
+#appointment .content .android img {
+  width: 2rem;
+  float: right;
+  margin-right: .2rem;
+}
 #appointment .content .logo {
   width: 1rem;
   height: 1rem;
@@ -28,6 +39,6 @@
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  border-radius: 10px;
+  border-radius: .1rem;
   color: #ffffff;
 }

@@ -2,7 +2,7 @@
   width: 100%;
   height: 0.5rem;
   border-bottom: 1px solid #e5e5e5;
-  padding: 10px 20px 10px 15px;
+  padding: .1rem .15rem;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -16,26 +16,26 @@
   flex-flow: row nowrap;
 }
 .header .searchIpt .dropdown {
-  margin-top: 8px;
+  margin-top: .08rem;
   width: 0.65rem;
-  padding-left: 8px;
+  padding-left: .08rem;
   height: 0.15rem;
   border-right: 1px solid #999999;
   line-height: 0.17rem;
   position: relative;
 }
 .header .searchIpt .dropdown i {
-  font-size: 14px;
+  font-size: .14rem;
 }
 .header .searchIpt .dropdown span {
-  font-size: 12px;
+  font-size: .12rem;
   position: absolute;
-  right: 4px;
+  right: .04rem;
 }
 .header .searchIpt .dropdown .dropdownList {
   position: relative;
-  top: 12px;
-  left: -9px;
+  top: .12rem;
+  left: -0.09rem;
   width: 0.5rem;
   height: 0.6rem;
   background-color: #070002;
@@ -58,7 +58,7 @@
 .header .searchIpt .dropdown .dropdownList .jian {
   width: 0;
   height: 0;
-  border-width: 0 6px 6px;
+  border-width: 0 .06rem .06rem;
   border-style: solid;
   border-color: transparent transparent #070002;
   position: absolute;
@@ -68,12 +68,38 @@
 .header .searchIpt input {
   background-color: #f3f3f3;
   width: 2.35rem;
-  height: 0.15rem;
-  margin-top: 0.08rem;
-  padding-left: 5px;
-  font-size: 14px;
+  height: .3rem;
+  padding-left: .05rem;
+  font-size: .14rem;
+}
+.header .searchIpt input::placeholder {
+  font-size: .14rem;
+  line-height: 1.5em;
 }
 .header .cancel {
   text-align: right;
   line-height: 0.3rem;
+}
+.hot {
+  padding: 0 .15rem;
+}
+.hot h3 {
+  font-size: .12rem;
+  color: #666666;
+  margin: .15rem 0;
+  margin-bottom: 0;
+}
+.hot .hotList {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.hot .hotList div {
+  width: .6rem;
+  height: .3rem;
+  background-color: #f3f3f3;
+  line-height: .3rem;
+  text-align: center;
+  border-radius: .06rem;
+  margin-top: 0.1rem;
 }

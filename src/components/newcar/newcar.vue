@@ -24,9 +24,10 @@
       <v-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="car_list">
           <router-link class="car_msg" v-for='item in newCarlist'
-                       v-bind="{to:'newcar/detail/'+item.modelId+'&'+item.carSourceId}">
+                       v-bind="{to:'newcar/detail/'+item.modelId+'&'+item.carSourceId+'&'+item.isPreferential}">
             <div class="carImg">
               <img :src="item.image">
+              <span class='yhImg' v-if='item.isPreferential==1'></span>
             </div>
             <div class="car_detailed">
               <h4>{{item.fullSeriesName}}</h4>

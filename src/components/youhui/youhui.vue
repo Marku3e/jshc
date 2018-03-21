@@ -1,5 +1,6 @@
 <template>
-  <div id="carlist" ref='carlist'>
+  <div id="youhui">
+
     <subHeader></subHeader>
     <!---->
     <div class="body">
@@ -24,15 +25,18 @@
       <v-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="car_list">
           <router-link class="car_msg" v-for='item in newCarlist'
-                       v-bind="{to:'usedcar/detail/'+item.modelId+'&'+item.carSourceId+'&'+item.isPreferential}">
+                       :to='item.isNewCar==1?"/newcar/detail/"+item.modelId+"&"+item.carSourceId+"&"+item.isPreferential
+                       :"/usedcar/detail/"+item.modelId+"&"+item.carSourceId+"&"+item.isPreferential'
+          >
             <div class="carImg">
               <img :src="item.image">
-              <span class='yhImg' v-if='item.isPreferential==1'></span>
+              <!--v-bind="{to:'newcar/detail/'+item.modelId+'&'+item.carSourceId}"-->
+              <span></span>
             </div>
             <div class="car_detailed">
               <h4>{{item.fullSeriesName}}</h4>
               <p>{{item.modelName}}</p>
-              <span>{{item.cityName}} | {{item.updateTime|datefmt('YYYY年MM月')}} | {{item.mile?item.mile+'万公里':"暂无数据"}}</span>
+              <span>厂商指导价：{{item.price}}万</span>
               <i>首付{{item.firstPay}}万 月供{{item.monthRepay}}元</i>
             </div>
           </router-link>
@@ -44,7 +48,7 @@
       </v-loadmore>
       <div class="layout" v-show=scroll @click.stop='scroll=false,carBrand=false' @touchmove.prevent>
         <ul class='deflist' v-show=def>
-          <li class='active' @click.stop='def_filter($event,1)' :class='defname=="默认排序"?"red":""'>默认排序<span
+          <li class='active' @click.stop='def_filter($event,1)' :class='defname=="默认排序"?"redduigou":""'>默认排序<span
             class='iconfont icon-duigou' :class='defname=="默认排序"?"redduigou":""'></span></li>
           <li @click.stop='def_filter($event,1)' :class='defname=="首付最低"?"red":""'>首付最低<span
             class='iconfont icon-duigou' :class='defname=="首付最低"?"redduigou":""'></span></li>
@@ -59,7 +63,6 @@
           <li @click.stop='def_filter($event,2)' :class='defname=="车价最高"?"red":""'>车价最高<span
             class='iconfont icon-duigou' :class='defname=="车价最高"?"redduigou":""'></span></li>
         </ul>
-
         <ul class='payBox' v-show=pay>
           <li :class='{"f-active":all.p_active==1}' @click="payClick($event,1)">全部</li>
           <li :class='{"f-active":all.p_active==2}' @click="payClick($event,2)">一万以内</li>
@@ -69,17 +72,18 @@
           <li :class='{"f-active":all.p_active==6}' @click="payClick($event,6)">4万以上</li>
         </ul>
       </div>
-      <ul class='carBrand' v-show=carBrand>
-        <li @click=bClick(null)>
-          <img src="https://image.guazistatic.com/gz01170808/01/36/89d8107acef552cc75d5c5842e318197.png" alt="">
-          全部
-        </li>
-        <li v-for="(item,index) in carBrandList" @click=bClick(item.car_brand_id)>
-          <img :src="item.brand_image" alt="">
-          {{item.brand_name}}
-        </li>
-      </ul>
+
     </div>
+    <ul class='carBrand' v-show='carBrand' style="display: none">
+      <li @click=bClick(null)>
+        <img src="https://image.guazistatic.com/gz01170808/01/36/89d8107acef552cc75d5c5842e318197.png" alt="">
+        全部
+      </li>
+      <li v-for="(item,index) in carBrandList" @click=bClick(item.car_brand_id)>
+        <img :src="item.brand_image" alt="">
+        {{item.brand_name}}
+      </li>
+    </ul>
     <mt-popup v-model="popupVisible" popup-transition="popup-fade" :modal=false>
       <div class="all-header">
         <div class="a-h-left" @click.stop="popupVisible=false;scroll=false">
@@ -140,7 +144,6 @@
             <li :class='{"active":all.pm_active==4}' @click="pmClick($event,4)">4000以上</li>
           </ul>
         </div>
-
       </div>
       <div class="all-footer">
         <p>已选条件共<i class='red b'>{{total}}</i>辆车</p>
@@ -148,7 +151,6 @@
       </div>
     </mt-popup>
   </div>
-
 </template>
 
 <script>
@@ -156,13 +158,14 @@
   import {Loadmore} from 'mint-ui';
 
   export default {
-    name: "usedcar",
+    name: "youhui",
     components: {
       "subHeader": subHeader,
       'v-loadmore': Loadmore,
     },
     data() {
       return {
+        abcd_demo: true,
         all: {
           type: '全部',
           pay: '全部',
@@ -185,7 +188,7 @@
           isNewCar: null,
           size: null,
           page: null,
-          provId: null,
+          cityId: null,
           orderType: null,
           minPrice: null,
           maxPrice: null,
@@ -194,6 +197,7 @@
           minRepay: null,
           maxRepay: null,
           carBrandId: null,
+          isPreferential: null,
         },
         allLoaded: false,
         scrollMode: "auto", //移动端弹性滚动效果，touch为弹性滚动，auto是非弹性滚动
@@ -209,9 +213,6 @@
         location.reload()
       }
     },
-    mounted() {
-
-    },
     created() {
       //console.log(this.$route.query);
       this.carInfo = this.$route.query;
@@ -225,19 +226,32 @@
         // this.$refs.loadmore.onBottomLoaded();
       },
       loadBottom() {
+        //
+        if (this.totalpage == 1) {
+          this.carInfo.page = 1;
+          this.allLoaded = true;
+        } else {
+          this.carInfo.page = this.carInfo.page - 0 + 1;
+          //console.log(this.carInfo.page);
+          this.allLoaded = false;
+        }
+        this.getNewcar()
         // 上拉加载
-        this.more();// 上拉触发的分页查询
-        // this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
+        // this.more();// 上拉触发的分页查询
+        // // this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
         this.$refs.loadmore.onBottomLoaded();
 
       },
       getInfo: function () {
+        this.carInfo.page = 1;
         let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
         let param = new URLSearchParams();
-        param.append("isNewCar", this.carInfo.isNewCar);
-        param.append("size", this.carInfo.size);
-        param.append("page", this.carInfo.page);
-        param.append("orderType", this.carInfo.orderType);
+        this.carInfo.isNewCar ? param.append("isNewCar", this.carInfo.isNewCar) : "";
+        this.carInfo.size ? param.append("size", this.carInfo.size) : "";
+        this.carInfo.page ? param.append("page", this.carInfo.page) : "";
+        this.carInfo.orderType ? param.append("orderType", this.carInfo.orderType) : "";
+        this.carInfo.isPreferential ? param.append("isPreferential", this.carInfo.isPreferential) : '';
+        this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
         this.carInfo.cityId ? param.append("cityId", this.carInfo.cityId) : '';
         this.carInfo.minPrice ? param.append("minPrice", this.carInfo.minPrice) : '';
         this.carInfo.maxPrice ? param.append("maxPrice", this.carInfo.maxPrice) : '';
@@ -246,14 +260,15 @@
         this.carInfo.minRepay ? param.append("minRepay", this.carInfo.minRepay) : '';
         this.carInfo.maxRepay ? param.append("maxRepay", this.carInfo.maxRepay) : '';
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
-        this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
-        console.log(param);
+
+        //console.log(param);
         let that = this
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
             that.total = res.data.data.total
             that.newCarlist = res.data.data.list;
+            console.log(that.newCarlist);
           }).catch(function (error) {
           console.log(error);
         });
@@ -261,13 +276,13 @@
       getNewcar() {
         let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
         let that = this
-        // let param = url + '?isNewCar=' + this.carInfo.isNewCar + '&size=' + this.carInfo.size + '&page=' + this.carInfo.page + '&orderType=' + this.carInfo.orderType
-        // let param = this.carInfo
         let param = new URLSearchParams();
-        param.append("isNewCar", this.carInfo.isNewCar);
-        param.append("size", this.carInfo.size);
-        param.append("page", this.carInfo.page);
-        param.append("orderType", this.carInfo.orderType);
+        this.carInfo.isNewCar ? param.append("isNewCar", this.carInfo.isNewCar) : "";
+        this.carInfo.size ? param.append("size", this.carInfo.size) : "";
+        this.carInfo.page ? param.append("page", this.carInfo.page) : "";
+        this.carInfo.orderType ? param.append("orderType", this.carInfo.orderType) : "";
+        this.carInfo.isPreferential ? param.append("isPreferential", this.carInfo.isPreferential) : '';
+        this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
         this.carInfo.cityId ? param.append("cityId", this.carInfo.cityId) : '';
         this.carInfo.minPrice ? param.append("minPrice", this.carInfo.minPrice) : '';
         this.carInfo.maxPrice ? param.append("maxPrice", this.carInfo.maxPrice) : '';
@@ -276,13 +291,12 @@
         this.carInfo.minRepay ? param.append("minRepay", this.carInfo.minRepay) : '';
         this.carInfo.maxRepay ? param.append("maxRepay", this.carInfo.maxRepay) : '';
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
-        this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
-        console.log(param);
+        // console.log(param);
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
             if (res.status == 200) {
-              that.newCarlist = res.data.data.list;
+              that.newCarlist = that.newCarlist.concat(res.data.data.list);
               that.totalpage = res.data.data.totalPage;
               that.total = res.data.data.total
               if (that.totalpage == 1) {
@@ -298,50 +312,8 @@
           console.log(error);
         });
       },
-      more: function () {
-
-        // this.carInfo.page = this.carInfo.page - 0 + 1;
-        // console.log(this.carInfo.page);
-        // this.allLoaded = false;
-
-        if (this.totalpage == 1) {
-          this.carInfo.page = 1;
-          this.allLoaded = true;
-        } else {
-          this.carInfo.page = this.carInfo.page - 0 + 1;
-          //console.log(this.carInfo.page);
-          this.allLoaded = false;
-        }
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let param = new URLSearchParams();
-        param.append("isNewCar", this.carInfo.isNewCar);
-        param.append("size", this.carInfo.size);
-        param.append("page", this.carInfo.page);
-        param.append("orderType", this.carInfo.orderType);
-        this.carInfo.cityId ? param.append("cityId", this.carInfo.cityId) : '';
-        this.carInfo.minPrice ? param.append("minPrice", this.carInfo.minPrice) : '';
-        this.carInfo.maxPrice ? param.append("maxPrice", this.carInfo.maxPrice) : '';
-        this.carInfo.minFirstPay ? param.append("minFirstPay", this.carInfo.minFirstPay) : '';
-        this.carInfo.maxFirstPay ? param.append("maxFirstPay", this.carInfo.maxFirstPay) : '';
-        this.carInfo.minRepay ? param.append("minRepay", this.carInfo.minRepay) : '';
-        this.carInfo.maxRepay ? param.append("maxRepay", this.carInfo.maxRepay) : '';
-        this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
-        this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
-        console.log(param);
-        let that = this
-        this.$axios.post(url, param)
-          .then(function (res) {
-            console.log(res);
-            that.totalpage = res.data.data.totalpage
-            that.total = res.data.data.total
-            that.newCarlist = that.newCarlist.concat(res.data.data.list);
-            this.isHaveMore();
-          }).catch(function (error) {
-          console.log(error);
-        });
-      },
       isHaveMore: function () {
-        //是否还有下一页，如果没有就禁止上拉刷新
+        // 是否还有下一页，如果没有就禁止上拉刷新
         this.allLoaded = false; //true是禁止上拉加载
 
         if (this.carInfo.page == this.totalpage) {
@@ -353,31 +325,31 @@
         // let url = this.$common.baseUrl + '/car/basic/getBrandList' ;
         let url = this.$common.baseUrl + '/car/source/wx/getBrandList';
         this.$axios.post(url).then(res => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           if (res.data.res_code == '0000') {
             this.carBrandList = res.data.data;
           }
-        })
+        }).catch(function (error) {
+          console.log(error);
+        });
       },
       openFilter(num) {
         if (num == this.flag) {
+
           this.scroll = false
           this.carBrand = false
+          // console.log(this.carBrand);
           this.flag = null
         } else {
           this.scroll = true
           this.flag = num
-
-
           if (num == 1) {
             this.carBrand = false;
             this.pay = false;
-
             this.def = true
           } else if (num == 2) {
             this.def = false;
             this.pay = false;
-
             this.carBrand = true
           } else if (num == 3) {
             this.def = false;
@@ -390,8 +362,8 @@
             this.popupVisible = true;
             this.pay = false
           }
-
         }
+
 
       },
       def_filter: function (e, o) {
@@ -402,12 +374,12 @@
         //   path: '/newcar',
         //   query: {}
         // })
-        console.log(o);
+        //console.log(o);
         // this.$route.query.orderType = o;
         // console.log(this.$route.query);
         this.carInfo.orderType = o;
         this.getInfo();
-        console.log(1);
+        // console.log(1);
         //this.$router.go(0)
         // location.reload()
       },
@@ -491,6 +463,7 @@
         this.scroll = false;
         this.carBrand = false
         this.carInfo.carBrandId = id;
+        this.carInfo.page = 1;
         this.getInfo()
       },
       reset: function () {
@@ -507,5 +480,5 @@
 </script>
 
 <style scoped lang='less'>
-  @import "./carlist";
+  @import "youhui";
 </style>

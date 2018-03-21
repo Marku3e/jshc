@@ -19,9 +19,9 @@
       <!--</select>-->
 
 
-      <mu-select-field v-model="select" :labelFocusClass="['label-foucs']" @change="getId($event)" :maxHeight="300">
-        <mu-menu-item v-for="(item,index) in storeList" :key="index" :value="item.store_id" :title="item.name"/>
-      </mu-select-field>
+      <!--<mu-select-field v-model="select" :labelFocusClass="['label-foucs']" @change="getId($event)" :maxHeight="300">-->
+      <!--<mu-menu-item v-for="(item,index) in storeList" :key="index" :value="item.store_id" :title="item.name"/>-->
+      <!--</mu-select-field>-->
       <!--<button @click=demo()>123</button>-->
       <button ref='btn' @click="check()">立即预约</button>
     </div>
@@ -49,6 +49,7 @@
     },
     created() {
       this.carId = this.$route.params.id.split(',')[0]
+      console.log(this.carId);
       // console.log(this.carId);
       this.carSourceId = this.$route.params.id.split(',')[1]
       this.getStore();
@@ -108,7 +109,7 @@
               console.log(res);
               if (res.data.err_no == 200) {
                 that.sendInfo()
-                that.$router.push({path: '/success'})
+
               } else {
                 console.log('验证码错误');
               }
@@ -158,7 +159,7 @@
           console.log(res);
           that.storeList = res.data.data
           that.select = res.data.data[0].store_id
-          console.log(that.select);
+          // console.log(that.select);
         })
       },
       getCarInfo() {
@@ -168,15 +169,26 @@
           console.log(res);
           that.term = res.data.data.term
           that.firstPay = res.data.data.firstPay
-          console.log(that.term + '----' + that.firstPay);
+          // console.log(that.term + '----' + that.firstPay);
         })
       },
       sendInfo() {
         const that = this;
         const url = this.$common.baseUrl + '/car/source/wx/saveCarReserve'
-        this.$axios.post(url + '?carSourceId=' + that.carSourceId + '&storeId=' + that.select + '&phone=' + that.phoneNum + '&term=' + that.term + '&applyMoney=' + that.firstPay)
+        // '&storeId=' + that.select +
+        this.$axios.post(url + '?carSourceId=' + that.carSourceId + '&phone=' + that.phoneNum + '&term=' + that.term + '&applyMoney=' + that.firstPay)
           .then(res => {
-            console.log(res);
+            console.log(res.data.msg);
+            if (res.data.err_no == 500) {
+              this.$Toast({
+                message: res.data.msg,
+                position: 'center',
+                duration: 2000
+              })
+              return;
+            } else {
+              that.$router.push({path: '/success'})
+            }
           })
       }
     }

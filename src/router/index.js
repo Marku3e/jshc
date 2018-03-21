@@ -9,10 +9,10 @@ import newSearch from '@/components/search/newSearch'
 import usedSearch from '@/components/search/usedSearch'
 import appointment from '@/components/appointment/appointment'
 import aboutus from '@/components/aboutus/aboutus'
-import ndemo from '@/components/newcar/demo'
 import login from "@/components/login/login"
 import store from "@/components/store/store"
 import success from "@/components/login/success"
+import youhui from "@/components/youhui/youhui"
 
 Vue.use(Router)
 
@@ -36,7 +36,7 @@ export default new Router({
     {path: '/login/:id', name: 'login', component: login, meta: {title: '好提车'}},
     {path: '/store', name: 'store', component: store, meta: {title: '全部门店'}},
     {path: '/success', name: 'success', component: success, meta: {title: '好提车'}},
-    {path: '/ndemo', name: 'ndemo', component: ndemo, meta: {title: '好提车'}},
+    {path: '/youhui', name: 'youhui', component: youhui, meta: {title: '优惠车型'}},
   ],
 
 })

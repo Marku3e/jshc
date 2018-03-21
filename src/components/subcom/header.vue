@@ -25,9 +25,9 @@
             </router-link>
           </li>
           <div class="bb"></div>
-          <!--<li>-->
-          <!--<router-link :to="'/ndemo'">优惠车型</router-link>-->
-          <!--</li>-->
+          <li>
+          <router-link :to="{path:'/youhui',query:{size:10,page:1,orderType:1,isPreferential:true}}">优惠车型</router-link>
+          </li>
           <li>
             <router-link :to="'/appointment'">我要提车</router-link>
           </li>

@@ -2,32 +2,77 @@
   <div id="home">
     <!--通用头部-->
     <subHeader></subHeader>
+    <mt-swipe :auto="3000">
+      <mt-swipe-item v-for="(item,index) in bannerImgs"><img :src="item.image" alt=""></mt-swipe-item>
+    </mt-swipe>
+    <div class="b-line"></div>
     <div class="body">
       <div class="filter">
         <ul class="filter_list">
-          <li @click=pClick(null,5)>5万以下</li>
-          <li @click=pClick(5,10)>5-10万</li>
-          <li @click=pClick(10,20)>10-20万</li>
-          <li @click=pClick(20,null)>20万以上</li>
-          <li @click=oClick(1)>首付1万</li>
-          <li @click=oClick(2)>超低月供</li>
+          <li :class='pflag == 1?"color":""' @click=pClick(null,5,1)>5万以下</li>
+          <li :class='pflag == 2?"color":""' @click=pClick(5,10,2)>5-10万</li>
+          <li :class='pflag == 3?"color":""' @click=pClick(10,20,3)>10-20万</li>
+          <li :class='pflag == 4?"color":""' @click=pClick(20,null,4)>20万以上</li>
+          <li :class='oflag == 1?"color":""' @click=oClick(1)>首付1万</li>
+          <li :class='mflag == 1?"color":""' @click=mClick(1)>超低月供</li>
+
+          <li :class='bflag == 2499972752082944?"color":""' @click=fBrand(2499972752082944)><img
+            src="../../assets/images/qiya@3x.png" alt="">起亚
+          </li>
+          <li :class='bflag == 2499972753688576?"color":""' @click=fBrand(2499972753688576)><img
+            src="../../assets/images/xue@3x.png"
+            alt="" class='nomargin'>雪佛兰
+          </li>
+          <li :class='bflag == 2499972752148480?"color":""' @click=fBrand(2499972752148480)><img
+            src="../../assets/images/nissan@3x.png" alt="">日产
+          </li>
+          <li :class='bflag == 2499972747724800?"color":""' @click=fBrand(2499972747724800)><img
+            src="../../assets/images/ford@3x.png" alt="">福特
+          </li>
+          <li :class='bflag == 2499972747413504?"color":""' @click=fBrand(2499972747413504)><img
+            src="../../assets/images/dazhong@3x.png" alt="">大众
+          </li>
+          <li :class='bflag == 2499972745119744?"color":""' @click=fBrand(2499972745119744)><img
+            src="../../assets/images/bieke@3x.png" alt="">别克
+          </li>
 
 
-          <!--<li @click=fBrand(2499972752082944)><img src="../../assets/images/qiya@3x.png" alt="">起亚</li>-->
-          <!--<li @click=fBrand(2499972753688576)><img src="../../assets/images/xue@3x.png" alt="" class='nomargin'>雪佛兰-->
+
+
+
+          <!--<li :class='bflag == 2518477397608448?"color":""' @click=fBrand(2518477397608448)><img-->
+            <!--src="../../assets/images/qiya@3x.png" alt="">起亚-->
           <!--</li>-->
-          <!--<li @click=fBrand(2499972752148480)><img src="../../assets/images/nissan@3x.png" alt="">日产</li>-->
-          <!--<li @click=fBrand(2499972747724800)><img src="../../assets/images/ford@3x.png" alt="">福特</li>-->
-          <!--<li @click=fBrand(2499972747413504)><img src="../../assets/images/dazhong@3x.png" alt="">大众</li>-->
-          <!--<li @click=fBrand(2499972745119744)><img src="../../assets/images/bieke@3x.png" alt="">别克</li>-->
+          <!--<li :class='bflag == 2518477398738944?"color":""' @click=fBrand(2518477398738944)><img-->
+            <!--src="../../assets/images/xue@3x.png"-->
+            <!--alt="" class='nomargin'>雪佛兰-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2518477397641216?"color":""' @click=fBrand(2518477397641216)><img-->
+            <!--src="../../assets/images/nissan@3x.png" alt="">日产-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2518477394036736?"color":""' @click=fBrand(2518477394036736)><img-->
+            <!--src="../../assets/images/ford@3x.png" alt="">福特-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2518477393823744?"color":""' @click=fBrand(2518477393823744)><img-->
+            <!--src="../../assets/images/dazhong@3x.png" alt="">大众-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2518477391775744?"color":""' @click=fBrand(2518477391775744)><img-->
+            <!--src="../../assets/images/bieke@3x.png" alt="">别克-->
+          <!--</li>-->
 
 
-          <li @click=fBrand(2518477397608448)><img src="../../assets/images/qiya@3x.png" alt="">起亚</li>
-          <li @click=fBrand(2518477398738944)><img src="../../assets/images/xuefulan@3x.png" alt="" class='nomargin'>雪佛兰</li>
-          <li @click=fBrand(2518477397641216)><img src="../../assets/images/richan@3x.png" alt="">日产</li>
-          <li @click=fBrand(2518477394036736)><img src="../../assets/images/ford@3x.png" alt="">福特</li>
-          <li @click=fBrand(2518477393823744)><img src="../../assets/images/dazhong@3x.png" alt="">大众</li>
-          <li @click=fBrand(2518477391775744)><img src="../../assets/images/bieke@3x.png" alt="">别克</li>
+
+
+
+
+
+
+
+
+
+
+
+
         </ul>
       </div>
       <div class="b-line"></div>
@@ -40,9 +85,11 @@
           <mt-tab-container v-model="selected">
             <mt-tab-container-item v-bind:id="1">
               <div class='newcarMsg' v-for='(item,index) in newCarlist'>
-                <router-link v-bind="{to:'/newcar/detail/'+item.modelId+'&'+item.carSourceId}" class="car_msg">
+                <router-link v-bind="{to:'/newcar/detail/'+item.modelId+'&'+item.carSourceId+'&'+item.isPreferential}"
+                             class="car_msg" :key="index">
                   <div class="carImg">
                     <img :src="item.image">
+                    <span class='yhImg' v-if='item.isPreferential==1'></span>
                   </div>
                   <div class="car_detailed">
                     <h4>{{item.fullSeriesName}}</h4>
@@ -59,9 +106,11 @@
             </mt-tab-container-item>
             <mt-tab-container-item v-bind:id="2">
               <div class='usedcarMsg' v-for='(item,index) in usedCarlist'>
-                <router-link v-bind="{to:'/usedcar/detail/'+item.modelId+'&'+item.carSourceId}" class="car_msg">
+                <router-link v-bind="{to:'/usedcar/detail/'+item.modelId+'&'+item.carSourceId+'&'+item.isPreferential}"
+                             class="car_msg" :key="index">
                   <div class="carImg">
                     <img :src="item.image">
+                    <span class='yhImg' v-if='item.isPreferential==1'></span>
                   </div>
                   <div class="car_detailed">
                     <h4>{{item.fullSeriesName}}</h4>
@@ -95,6 +144,8 @@
     },
     data() {
       return {
+        bannerImgs: [],
+        isPreferential: null,
         selected: 1,
         activeTab: "newcar",
         newCarlist: [],
@@ -130,102 +181,79 @@
         totalpage: 0,
         allLoaded: false,
         scrollMode: "auto",
+        pflag: null,
+        oflag: null,
+        bflag: null,
+        mflag: null,
       }
     },
     created() {
       this.getNewcar();
       this.getUsedcar();
+      this.getBannerImg();
     },
     mounted() {
 
     },
     methods: {
       oClick: function (str) {
-        if (str == 1) {
+        if (this.oflag == str) {
+          this.oflag = null;
+          this.newcarInfo.maxFirstPay = null;
+          this.usedcarInfo.maxFirstPay = null;
+        } else {
           this.newcarInfo.maxFirstPay = 1;
           this.usedcarInfo.maxFirstPay = 1;
-          this.newcarInfo.minFirstPay = null;
-          this.usedcarInfo.minFirstPay = null;
-
-          this.newcarInfo.carBrandId = null;
-          this.usedcarInfo.carBrandId = null;
-
-          this.newcarInfo.minPrice = null;
-          this.newcarInfo.maxPrice = null;
-          this.usedcarInfo.maxPrice = null;
-          this.usedcarInfo.minPrice = null;
-
-          this.newcarInfo.orderType = 1
-          this.usedcarInfo.orderType = 1
-        } else {
-          this.newcarInfo.orderType = 3
-          this.usedcarInfo.orderType = 3
-
-          this.newcarInfo.carBrandId = null;
-          this.usedcarInfo.carBrandId = null;
-
-          this.newcarInfo.minPrice = null;
-          this.newcarInfo.maxPrice = null;
-          this.usedcarInfo.maxPrice = null;
-          this.usedcarInfo.minPrice = null;
-
-          this.newcarInfo.maxFirstPay = null;
-          this.newcarInfo.minFirstPay = null;
-          this.usedcarInfo.maxFirstPay = null;
-          this.usedcarInfo.minFirstPay = null;
-
+          this.oflag = str;
         }
+        this.newcarInfo.orderType = 3
+        this.usedcarInfo.orderType = 3
         this.getNewcar();
         this.getUsedcar();
       },
-      pClick: function (min, max) {
-        this.newcarInfo.minPrice = min;
-        this.usedcarInfo.minPrice = min;
-        this.newcarInfo.maxPrice = max;
-        this.usedcarInfo.maxPrice = max;
-
-        this.newcarInfo.carBrandId = null;
-        this.usedcarInfo.carBrandId = null;
-
-        this.newcarInfo.maxFirstPay = null;
-        this.usedcarInfo.maxFirstPay = null;
-        this.newcarInfo.minFirstPay = null;
-        this.usedcarInfo.minFirstPay = null;
-
-        this.newcarInfo.orderType = 1
-        this.usedcarInfo.orderType = 1
+      mClick(str) {
+        if (this.mflag == str) {
+          this.mflag = null;
+          this.newcarInfo.orderType = null
+          this.usedcarInfo.orderType = null
+        } else {
+          this.newcarInfo.orderType = 3
+          this.usedcarInfo.orderType = 3
+          this.mflag = str;
+        }
+        this.newcarInfo.orderType = 3
+        this.usedcarInfo.orderType = 3
+        this.getNewcar();
+        this.getUsedcar();
+      },
+      pClick: function (min, max, id) {
+        if (this.pflag == id) {
+          this.pflag = null;
+          this.newcarInfo.minPrice = null;
+          this.usedcarInfo.minPrice = null;
+          this.newcarInfo.maxPrice = null;
+          this.usedcarInfo.maxPrice = null;
+        } else {
+          this.pflag = id;
+          this.newcarInfo.minPrice = min;
+          this.usedcarInfo.minPrice = min;
+          this.newcarInfo.maxPrice = max;
+          this.usedcarInfo.maxPrice = max;
+        }
         this.getNewcar();
         this.getUsedcar();
 
       },
       fBrand: function (id) {
-        console.log(id);
-        this.newcarInfo.carBrandId = id;
-        this.usedcarInfo.carBrandId = id;
-
-        this.newcarInfo.minPrice = null;
-        this.newcarInfo.maxPrice = null;
-        this.usedcarInfo.maxPrice = null;
-        this.usedcarInfo.minPrice = null;
-
-        this.newcarInfo.maxFirstPay = null;
-        this.newcarInfo.minFirstPay = null;
-        this.usedcarInfo.maxFirstPay = null;
-        this.usedcarInfo.minFirstPay = null;
-
-        this.newcarInfo.orderType = 1
-        this.usedcarInfo.orderType = 1
-        // this.$router.push({
-        //   path: '/home',
-        //   query: {
-        //     "isNewCar": true,
-        //     "size": '10',
-        //     "page": '1',
-        //     "carBrandId": id,
-        //     "orderType": '1',
-        //   }
-        // })
-        // console.log(this.$route.query);
+        if (this.bflag == id) {
+          this.bflag = null;
+          this.newcarInfo.carBrandId = null;
+          this.usedcarInfo.carBrandId = null;
+        } else {
+          this.newcarInfo.carBrandId = id;
+          this.usedcarInfo.carBrandId = id;
+          this.bflag = id
+        }
         this.getNewcar();
         this.getUsedcar();
       },
@@ -262,6 +290,7 @@
             that.totalpage = res.data.data.totalpage
 
             that.newCarlist = that.newCarlist.concat(res.data.data.list);
+
             that.isHaveMore();
           }).catch(function (error) {
           console.log(error);
@@ -344,23 +373,6 @@
           console.log(error);
         });
       },
-      // more: function () {
-      //   // 分页查询
-      //   // if (this.totalpage == 1) {
-      //   //   this.page = 1;
-      //   //   this.allLoaded = true;
-      //   // } else {
-      //   //   this.page = this.page + 1;
-      //   //   this.allLoaded = false;
-      //   // }
-      //   // let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-      //   // let that = this
-      //   // this.$axios.post(url + '?isNewCar=true&size=' + this.size + '&page=' + this.page + '&orderType=' + this.orderType + '').then(res => {
-      //   //   that.newCarlist = that.newCarlist.concat(res.data.data.list);
-      //   //   console.log(that.newCarlist);
-      //   //   this.isHaveMore();
-      //   // });
-      // },
       isHaveMore: function () {
         //是否还有下一页，如果没有就禁止上拉刷新
         this.allLoaded = false; //true是禁止上拉加载
@@ -369,6 +381,14 @@
           this.allLoaded = true;
         }
       },
+      getBannerImg() {
+        const url = this.$common.baseUrl + '/car/source/wx/getBannerImgs'
+        const that = this
+        this.$axios.post(url).then(function (res) {
+          console.log(res.data.data);
+          that.bannerImgs = res.data.data;
+        })
+      }
     }
   }
 </script>
@@ -377,4 +397,26 @@
 
   @import "home";
 
+  .mint-swipe {
+    height: 2rem;
+  }
+
+  .mint-swipe-item {
+    width: 100%;
+    height: 2rem;
+    background-color: gray;
+    text-align: center;
+    line-height: 2rem;
+    color: #ffffff;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .mint-swipe-indicator {
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+  }
 </style>

@@ -179,6 +179,92 @@
 #detail .product-adv .pro-info .quan {
   background-image: url('../../assets/images/quan@3x.png');
 }
+#detail .product-adv .dif {
+  width: 100%;
+  height: 3.6rem;
+  padding-top: .1rem;
+}
+#detail .product-adv .dif .single {
+  position: absolute;
+  right: 0;
+  top: .38rem;
+}
+#detail .product-adv .dif .dif-top {
+  width: 100%;
+  height: .5rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+#detail .product-adv .dif .dif-top .jiusheng,
+#detail .product-adv .dif .dif-top .other {
+  width: 43%;
+  height: .5rem;
+  text-align: center;
+  font-size: .17rem;
+  line-height: .5rem;
+  font-weight: 700;
+  color: #e40011;
+}
+#detail .product-adv .dif .dif-top .vs {
+  width: .5rem;
+  height: .5rem;
+  background: url("../../assets/images/juxing@2x.png") no-repeat;
+  background-size: .5rem;
+}
+#detail .product-adv .dif .dif-top .other {
+  color: #333333;
+}
+#detail .product-adv .dif .dif-bottom {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  flex-flow: row nowrap;
+}
+#detail .product-adv .dif .dif-bottom .db-left {
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid #e5e5e5;
+  text-align: right;
+  padding-right: .05rem;
+}
+#detail .product-adv .dif .dif-bottom .db-left .db-list {
+  margin-bottom: .1rem;
+  position: relative;
+}
+#detail .product-adv .dif .dif-bottom .db-left .db-list h3 {
+  font-size: .14rem;
+  color: #e40011;
+  line-height: .29rem;
+}
+#detail .product-adv .dif .dif-bottom .db-left .db-list p {
+  font-size: .12rem;
+  color: #888888;
+  line-height: .17rem;
+}
+#detail .product-adv .dif .dif-bottom .db-right {
+  width: 50%;
+  height: 100%;
+  text-align: left;
+  padding-left: .05rem;
+}
+#detail .product-adv .dif .dif-bottom .db-right .db-list {
+  margin-bottom: .1rem;
+  position: relative;
+}
+#detail .product-adv .dif .dif-bottom .db-right .db-list h3 {
+  font-size: .14rem;
+  color: #333333;
+  line-height: .29rem;
+}
+#detail .product-adv .dif .dif-bottom .db-right .db-list p {
+  font-size: .12rem;
+  color: #888888;
+  line-height: .17rem;
+}
+#detail .bbnomargin {
+  margin-top: 0;
+}
 #detail .default {
   width: 100%;
   box-sizing: border-box;
@@ -234,9 +320,17 @@
 #detail .adv .a-info img {
   width: 100%;
 }
+#detail .adv .a-info h4 {
+  padding: 0 .16rem;
+  font-size: .15rem;
+  color: #333333;
+}
 #detail .adv .a-info p {
   padding: 0 .16rem;
-  margin: .05rem 0;
+  margin: .5rem 0;
+  margin-top: 0;
+  font-size: .14rem;
+  color: #666666;
 }
 #detail .footer {
   width: 100%;

@@ -11,6 +11,9 @@
   flex-flow: row wrap;
   justify-content: space-between;
 }
+#home .filter .filter_list .color {
+  color: #e40011;
+}
 #home .filter .filter_list img {
   width: .2rem;
   vertical-align: text-bottom;
@@ -58,9 +61,20 @@
   width: 0.8rem;
   height: 0.7rem;
   margin: .2rem .2rem 0 0;
+  position: relative;
 }
 #home .car_list .newcarMsg .car_msg .carImg img {
   height: 100%;
+}
+#home .car_list .newcarMsg .car_msg .carImg .yhImg {
+  position: absolute;
+  display: block;
+  width: .3rem;
+  height: .3rem;
+  top: 0;
+  left: 0;
+  background: url("../../assets/images/youhui_s@2x.png") no-repeat;
+  background-size: .3rem;
 }
 #home .car_list .newcarMsg .car_msg .car_detailed {
   padding-top: 0.1rem;
@@ -108,9 +122,20 @@
   width: 0.8rem;
   height: 0.7rem;
   margin: .2rem .2rem 0 0;
+  position: relative;
 }
 #home .car_list .usedcarMsg .car_msg .carImg img {
   height: 100%;
+}
+#home .car_list .usedcarMsg .car_msg .carImg .yhImg {
+  position: absolute;
+  display: block;
+  width: .3rem;
+  height: .3rem;
+  top: 0;
+  left: 0;
+  background: url("../../assets/images/youhui_s@2x.png") no-repeat;
+  background-size: .3rem;
 }
 #home .car_list .usedcarMsg .car_msg .car_detailed {
   padding-top: 0.1rem;

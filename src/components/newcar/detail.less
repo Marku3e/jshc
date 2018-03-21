@@ -181,6 +181,93 @@
         background-image: url('../../assets/images/quan@3x.png');
       }
     }
+    .dif {
+      width: 100%;
+      height: 3.6rem;
+      padding-top: .1rem;
+      .single {
+        position: absolute;
+        right: 0;
+        top: .38rem;
+      }
+      .dif-top {
+        width: 100%;
+        height: .5rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        .jiusheng, .other {
+          width: 43%;
+          height: .5rem;
+          text-align: center;
+          font-size: .17rem;
+          line-height: .5rem;
+          font-weight: 700;
+          color: #e40011;
+        }
+        .vs {
+          width: .5rem;
+          height: .5rem;
+          background: url("../../assets/images/juxing@2x.png") no-repeat;
+          background-size: .5rem;
+        }
+        .other {
+          color: #333333;
+
+        }
+      }
+      .dif-bottom {
+        width: 100%;
+        height: 3rem;
+        display: flex;
+        flex-flow: row nowrap;
+        .db-left {
+          width: 50%;
+          height: 100%;
+          border-right: 1px solid #e5e5e5;
+          text-align: right;
+          padding-right: .05rem;
+          .db-list {
+            margin-bottom: .1rem;
+            position: relative;
+            h3 {
+              font-size: .14rem;
+              color: #e40011;
+
+              line-height: .29rem;
+            }
+            p {
+              font-size: .12rem;
+              color: #888888;
+              line-height: .17rem;
+            }
+          }
+        }
+        .db-right {
+          width: 50%;
+          height: 100%;
+          text-align: left;
+          padding-left: .05rem;
+          .db-list {
+            margin-bottom: .1rem;
+            position: relative;
+            h3 {
+              font-size: .14rem;
+              color: #333333;
+              line-height: .29rem;
+            }
+            p {
+              font-size: .12rem;
+              color: #888888;
+              line-height: .17rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bbnomargin {
+    margin-top: 0;
   }
   .default {
     width: 100%;
@@ -236,11 +323,18 @@
       width: 100%;
       img {
         width: 100%;
-
+      }
+      h4 {
+        padding: 0 .16rem;
+        font-size: .15rem;
+        color: #333333;
       }
       p {
         padding: 0 .16rem;
         margin: .5rem 0;
+        margin-top: 0;
+        font-size: .14rem;
+        color: #666666;
       }
     }
   }

@@ -13,6 +13,8 @@ import login from "@/components/login/login"
 import store from "@/components/store/store"
 import success from "@/components/login/success"
 import youhui from "@/components/youhui/youhui"
+import demo from "@/components/newcar/demo"
+import poster from "@/components/poster/poster"
 
 Vue.use(Router)
 
@@ -37,6 +39,8 @@ export default new Router({
     {path: '/store', name: 'store', component: store, meta: {title: '全部门店'}},
     {path: '/success', name: 'success', component: success, meta: {title: '好提车'}},
     {path: '/youhui', name: 'youhui', component: youhui, meta: {title: '优惠车型'}},
+    {path: '/demo', name: 'demo', component: demo, meta: {title: '测试'}},
+    {path: '/poster', name: 'poster', component: poster, meta: {title: '九盛好车'}},
   ],
 
 })

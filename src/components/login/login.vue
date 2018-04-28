@@ -63,11 +63,15 @@
         if (!this.reg) {
           return
         }
-        let that = this
+        var that = this
         that.isShow = false;
-        let param = new URLSearchParams();
-        param.append("phone", this.phoneNum);
-        let url = this.$common.baseUrl + '/common/smscode';
+        // var param = new URLSearchParams();
+        // param.append("phone", this.phoneNum);
+        var qs = require('qs');
+        var data = {}
+        data.phone = this.phoneNum
+        var param = qs.stringify(data);
+        var url = this.$common.baseUrl + '/common/smscode';
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
@@ -86,24 +90,29 @@
           }
         }
 
-        let timer = setInterval(function () {
+        var timer = setInterval(function () {
           settime()
         }, 1000)
       },
       check() {
         if (this.veri.length == 6 && this.reg) {
-          let that = this
+          var that = this
 
           //   this.$refs.btn.removeAttribute('disabled');
-          let url = this.$common.baseUrl + '/common/checkSmsCode';
-          // const data = {
+          var url = this.$common.baseUrl + '/common/checkSmsCode';
+          // var data = {
           //   phone: this.phoneNum-0,
           //   code: this.veri-0
           // }
           // console.log(data);
-          let param = new URLSearchParams();
-          param.append("phone", this.phoneNum);
-          param.append("code", this.veri);
+          // var param = new URLSearchParams();
+          // param.append("phone", this.phoneNum);
+          // param.append("code", this.veri);
+          var qs = require('qs');
+          var data = {}
+          data.phone = this.phoneNum
+          data.code = this.veri
+          var param = qs.stringify(data);
           this.$axios.post(url, param)
             .then(function (res) {
               console.log(res);
@@ -131,7 +140,7 @@
 
       },
       pattern() {
-        const reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
+        var reg = /^1[3|4|5|8][0-9]\d{4,8}$/;
         this.reg = reg.test(this.phoneNum)
         if (!this.reg) {
           this.$Toast({
@@ -153,9 +162,9 @@
         return
       },
       getStore: function () {
-        const that = this;
-        let url = this.$common.baseUrl + '/car/source/wx/getAllStore'
-        this.$axios.post(url).then(res => {
+        var that = this;
+        var url = this.$common.baseUrl + '/car/source/wx/getAllStore'
+        this.$axios.post(url).then(function (res) {
           console.log(res);
           that.storeList = res.data.data
           that.select = res.data.data[0].store_id
@@ -163,9 +172,9 @@
         })
       },
       getCarInfo() {
-        const that = this;
-        const url = this.$common.baseUrl + '/car/source/wx/getCarDetail';
-        this.$axios.post(url + '?modelId=' + that.carId + '&carSourceId=' + that.carSourceId).then(res => {
+        var that = this;
+        var url = this.$common.baseUrl + '/car/source/wx/getCarDetail';
+        this.$axios.post(url + '?modelId=' + that.carId + '&carSourceId=' + that.carSourceId).then(function(res) {
           console.log(res);
           that.term = res.data.data.term
           that.firstPay = res.data.data.firstPay
@@ -173,11 +182,11 @@
         })
       },
       sendInfo() {
-        const that = this;
-        const url = this.$common.baseUrl + '/car/source/wx/saveCarReserve'
+        var that = this;
+        var url = this.$common.baseUrl + '/car/source/wx/saveCarReserve'
         // '&storeId=' + that.select +
         this.$axios.post(url + '?carSourceId=' + that.carSourceId + '&phone=' + that.phoneNum + '&term=' + that.term + '&applyMoney=' + that.firstPay)
-          .then(res => {
+          .then(function(res) {
             console.log(res.data.msg);
             if (res.data.err_no == 500) {
               this.$Toast({

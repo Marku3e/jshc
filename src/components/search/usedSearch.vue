@@ -49,9 +49,9 @@
         this.$router.push('/home')
       },
       getHotBrand: function () {
-        const that = this;
-        const url = this.$common.baseUrl + '/car/basic/getHotBrand';
-        this.$axios.post(url).then(res => {
+        var that = this;
+        var url = this.$common.baseUrl + '/car/basic/getHotBrand';
+        this.$axios.post(url).then(function(res) {
           that.hotBrand = res.data.data
           console.log(that.hotBrand);
         })

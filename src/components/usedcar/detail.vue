@@ -36,7 +36,7 @@
       </div>
     </div>
     <mt-swipe :auto="3000">
- <span class='yhImg' v-if='youhui == 1'></span>
+      <span class='yhImg' v-if='youhui == 1'></span>
       <mt-swipe-item v-for="(item,index) in carDetail.imgList"><img :src="item" alt="">
 
       </mt-swipe-item>
@@ -94,9 +94,9 @@
         <div class="adv">
           <div class="a-tit">车辆实拍</div>
           <div class="a-info" v-for="(item,index) in carDetail.details">
-            <img :src="carDetail.details[index].image" alt="">
-            <h4>{{carDetail.details[index].title}}</h4>
-            <p>{{carDetail.details[index].content}}</p>
+            <img :src="carDetail.details[index].image" alt="" v-if='carDetail.details[index].image'>
+            <h4 v-if='carDetail.details[index].title'>{{carDetail.details[index].title}}</h4>
+            <p v-if='carDetail.details[index].content'>{{carDetail.details[index].content}}</p>
           </div>
           <!--<div class="a-info">-->
           <!--<img-->
@@ -224,9 +224,9 @@
         this.docked = !flag
       },
       getCarInfo() {
-        let that = this
+        var that = this
         console.log(that.id);
-        let url = this.$common.baseUrl + '/car/source/wx/getCarDetail';
+        var url = this.$common.baseUrl + '/car/source/wx/getCarDetail';
         this.$axios.post(url + '?modelId=' + that.id[0] + '&carSourceId=' + that.id[1]).then(function (res) {
           console.log(res);
           that.carDetail = res.data.data
@@ -242,12 +242,12 @@
         //   showCancelButton: true
         // });
         // MessageBox.confirm('确定执行此操作?').then(action => {
-        // let u = navigator.userAgent;
-        // let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-        // let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        // var u = navigator.userAgent;
+        // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         // console.log("android终端" + isAndroid);
         // console.log("ios终端" + isiOS);
-        window.location.href = "tel:400-680-8020";
+        window.location.href = "tel:400-118-1599";
         // });
       }
     }

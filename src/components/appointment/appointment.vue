@@ -25,9 +25,9 @@
       }
     },
     created() {
-      let u = navigator.userAgent;
-      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-      let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
       if (isAndroid) {
         this.storeName = '应用市场'
       }
@@ -42,10 +42,10 @@
           message: '打开App Stroe',
           showCancelButton: true
         })
-        MessageBox.confirm('确定执行此操作?').then(action => {
-          let u = navigator.userAgent;
-          let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-          let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        MessageBox.confirm('确定执行此操作?').then(function (action) {
+          var u = navigator.userAgent;
+          var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+          var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
           console.log("android终端" + isAndroid);
           console.log("ios终端" + isiOS);
           if (isAndroid) {

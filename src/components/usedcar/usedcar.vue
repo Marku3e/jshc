@@ -215,6 +215,16 @@
     created() {
       //console.log(this.$route.query);
       this.carInfo = this.$route.query;
+      var cid = JSON.parse(localStorage.getItem("city")).id
+      if (cid) {
+        this.carInfo.cityId = cid
+      } else {
+        if (JSON.parse(localStorage.getItem("city")).cityname == '全国') {
+          this.carInfo.cityId = cid
+        } else {
+          this.carInfo.cityId = 18
+        }
+      }
       console.log(this.carInfo);
       this.getNewcar();
       this.getBrandInfo()
@@ -232,8 +242,8 @@
 
       },
       getInfo: function () {
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let param = new URLSearchParams();
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        var param = new URLSearchParams();
         param.append("isNewCar", this.carInfo.isNewCar);
         param.append("size", this.carInfo.size);
         param.append("page", this.carInfo.page);
@@ -248,7 +258,23 @@
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
         this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
         console.log(param);
-        let that = this
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.carInfo.isNewCar
+        // data.size = this.carInfo.size
+        // data.page = this.carInfo.page
+        // data.orderType = this.carInfo.orderType
+        // this.carInfo.cityId ? data.cityId = this.carInfo.cityId : '';
+        // this.carInfo.minPrice ? data.minPrice = this.carInfo.minPrice : '';
+        // this.carInfo.maxPrice ? data.maxPrice = this.carInfo.maxPrice : '';
+        // this.carInfo.minFirstPay ? data.minFirstPay = this.carInfo.minFirstPay : '';
+        // this.carInfo.maxFirstPay ? data.maxFirstPay = this.carInfo.maxFirstPay : '';
+        // this.carInfo.minRepay ? data.minRepay = this.carInfo.minRepay : '';
+        // this.carInfo.maxRepay ? data.maxRepay = this.carInfo.maxRepay : '';
+        // this.carInfo.searchKey ? data.searchKey = this.carInfo.searchKey : '';
+        // this.carInfo.carBrandId ? data.carBrandId = this.carInfo.carBrandId : '';
+        // var param = qs.stringify(data);
+        var that = this
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
@@ -259,11 +285,11 @@
         });
       },
       getNewcar() {
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let that = this
-        // let param = url + '?isNewCar=' + this.carInfo.isNewCar + '&size=' + this.carInfo.size + '&page=' + this.carInfo.page + '&orderType=' + this.carInfo.orderType
-        // let param = this.carInfo
-        let param = new URLSearchParams();
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        var that = this
+        // var param = url + '?isNewCar=' + this.carInfo.isNewCar + '&size=' + this.carInfo.size + '&page=' + this.carInfo.page + '&orderType=' + this.carInfo.orderType
+        // var param = this.carInfo
+        var param = new URLSearchParams();
         param.append("isNewCar", this.carInfo.isNewCar);
         param.append("size", this.carInfo.size);
         param.append("page", this.carInfo.page);
@@ -278,6 +304,22 @@
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
         this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
         console.log(param);
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.carInfo.isNewCar
+        // data.size = this.carInfo.size
+        // data.page = this.carInfo.page
+        // data.orderType = this.carInfo.orderType
+        // this.carInfo.cityId ? data.cityId = this.carInfo.cityId : '';
+        // this.carInfo.minPrice ? data.minPrice = this.carInfo.minPrice : '';
+        // this.carInfo.maxPrice ? data.maxPrice = this.carInfo.maxPrice : '';
+        // this.carInfo.minFirstPay ? data.minFirstPay = this.carInfo.minFirstPay : '';
+        // this.carInfo.maxFirstPay ? data.maxFirstPay = this.carInfo.maxFirstPay : '';
+        // this.carInfo.minRepay ? data.minRepay = this.carInfo.minRepay : '';
+        // this.carInfo.maxRepay ? data.maxRepay = this.carInfo.maxRepay : '';
+        // this.carInfo.searchKey ? data.searchKey = this.carInfo.searchKey : '';
+        // this.carInfo.carBrandId ? data.carBrandId = this.carInfo.carBrandId : '';
+        // var param = qs.stringify(data);
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
@@ -312,8 +354,8 @@
           //console.log(this.carInfo.page);
           this.allLoaded = false;
         }
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let param = new URLSearchParams();
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        var param = new URLSearchParams();
         param.append("isNewCar", this.carInfo.isNewCar);
         param.append("size", this.carInfo.size);
         param.append("page", this.carInfo.page);
@@ -328,14 +370,30 @@
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
         this.carInfo.searchKey ? param.append("searchKey", this.carInfo.searchKey) : '';
         console.log(param);
-        let that = this
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.carInfo.isNewCar
+        // data.size = this.carInfo.size
+        // data.page = this.carInfo.page
+        // data.orderType = this.carInfo.orderType
+        // this.carInfo.cityId ? data.cityId = this.carInfo.cityId : '';
+        // this.carInfo.minPrice ? data.minPrice = this.carInfo.minPrice : '';
+        // this.carInfo.maxPrice ? data.maxPrice = this.carInfo.maxPrice : '';
+        // this.carInfo.minFirstPay ? data.minFirstPay = this.carInfo.minFirstPay : '';
+        // this.carInfo.maxFirstPay ? data.maxFirstPay = this.carInfo.maxFirstPay : '';
+        // this.carInfo.minRepay ? data.minRepay = this.carInfo.minRepay : '';
+        // this.carInfo.maxRepay ? data.maxRepay = this.carInfo.maxRepay : '';
+        // this.carInfo.searchKey ? data.searchKey = this.carInfo.searchKey : '';
+        // this.carInfo.carBrandId ? data.carBrandId = this.carInfo.carBrandId : '';
+        // var param = qs.stringify(data);
+        var that = this
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
             that.totalpage = res.data.data.totalpage
             that.total = res.data.data.total
             that.newCarlist = that.newCarlist.concat(res.data.data.list);
-            this.isHaveMore();
+            that.isHaveMore();
           }).catch(function (error) {
           console.log(error);
         });
@@ -349,13 +407,14 @@
         }
       },
       getBrandInfo: function () {
-        // let url = this.$common.baseUrl + '/car/basic/getHotBrand';
-        // let url = this.$common.baseUrl + '/car/basic/getBrandList' ;
-        let url = this.$common.baseUrl + '/car/source/wx/getBrandList';
-        this.$axios.post(url).then(res => {
+        // var url = this.$common.baseUrl + '/car/basic/getHotBrand';
+        // var url = this.$common.baseUrl + '/car/basic/getBrandList' ;
+        var url = this.$common.baseUrl + '/car/source/wx/getBrandList';
+        var that =this
+        this.$axios.post(url).then(function(res) {
           console.log(res.data.data);
           if (res.data.res_code == '0000') {
-            this.carBrandList = res.data.data;
+            that.carBrandList = res.data.data;
           }
         })
       },

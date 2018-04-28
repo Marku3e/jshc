@@ -35,8 +35,8 @@
     },
     methods: {
       getStore() {
-        let url = this.$common.baseUrl + '/car/source/wx/getAllStore'
-        const that = this
+        var url = this.$common.baseUrl + '/car/source/wx/getAllStore'
+        var that = this
         this.$axios.post(url)
           .then(function (res) {
             console.log(res);

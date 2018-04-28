@@ -16,61 +16,46 @@
           <li :class='oflag == 1?"color":""' @click=oClick(1)>首付1万</li>
           <li :class='mflag == 1?"color":""' @click=mClick(1)>超低月供</li>
 
-          <li :class='bflag == 2499972752082944?"color":""' @click=fBrand(2499972752082944)><img
+          <!--<li :class='bflag == 2499972752082944?"color":""' @click=fBrand(2499972752082944)><img-->
+          <!--src="../../assets/images/qiya@3x.png" alt="">起亚-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2499972753688576?"color":""' @click=fBrand(2499972753688576)><img-->
+          <!--src="../../assets/images/xue@3x.png"-->
+          <!--alt="" class='nomargin'>雪佛兰-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2499972752148480?"color":""' @click=fBrand(2499972752148480)><img-->
+          <!--src="../../assets/images/nissan@3x.png" alt="">日产-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2499972747724800?"color":""' @click=fBrand(2499972747724800)><img-->
+          <!--src="../../assets/images/ford@3x.png" alt="">福特-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2499972747413504?"color":""' @click=fBrand(2499972747413504)><img-->
+          <!--src="../../assets/images/dazhong@3x.png" alt="">大众-->
+          <!--</li>-->
+          <!--<li :class='bflag == 2499972745119744?"color":""' @click=fBrand(2499972745119744)><img-->
+          <!--src="../../assets/images/bieke@3x.png" alt="">别克-->
+          <!--</li>-->
+
+
+          <li :class='bflag == 2518477397608448?"color":""' @click=fBrand(2518477397608448)><img
             src="../../assets/images/qiya@3x.png" alt="">起亚
           </li>
-          <li :class='bflag == 2499972753688576?"color":""' @click=fBrand(2499972753688576)><img
+          <li :class='bflag == 2518477398738944?"color":""' @click=fBrand(2518477398738944)><img
             src="../../assets/images/xue@3x.png"
             alt="" class='nomargin'>雪佛兰
           </li>
-          <li :class='bflag == 2499972752148480?"color":""' @click=fBrand(2499972752148480)><img
+          <li :class='bflag == 2518477397641216?"color":""' @click=fBrand(2518477397641216)><img
             src="../../assets/images/nissan@3x.png" alt="">日产
           </li>
-          <li :class='bflag == 2499972747724800?"color":""' @click=fBrand(2499972747724800)><img
+          <li :class='bflag == 2518477394036736?"color":""' @click=fBrand(2518477394036736)><img
             src="../../assets/images/ford@3x.png" alt="">福特
           </li>
-          <li :class='bflag == 2499972747413504?"color":""' @click=fBrand(2499972747413504)><img
+          <li :class='bflag == 2518477393823744?"color":""' @click=fBrand(2518477393823744)><img
             src="../../assets/images/dazhong@3x.png" alt="">大众
           </li>
-          <li :class='bflag == 2499972745119744?"color":""' @click=fBrand(2499972745119744)><img
+          <li :class='bflag == 2518477391775744?"color":""' @click=fBrand(2518477391775744)><img
             src="../../assets/images/bieke@3x.png" alt="">别克
           </li>
-
-
-
-
-
-          <!--<li :class='bflag == 2518477397608448?"color":""' @click=fBrand(2518477397608448)><img-->
-            <!--src="../../assets/images/qiya@3x.png" alt="">起亚-->
-          <!--</li>-->
-          <!--<li :class='bflag == 2518477398738944?"color":""' @click=fBrand(2518477398738944)><img-->
-            <!--src="../../assets/images/xue@3x.png"-->
-            <!--alt="" class='nomargin'>雪佛兰-->
-          <!--</li>-->
-          <!--<li :class='bflag == 2518477397641216?"color":""' @click=fBrand(2518477397641216)><img-->
-            <!--src="../../assets/images/nissan@3x.png" alt="">日产-->
-          <!--</li>-->
-          <!--<li :class='bflag == 2518477394036736?"color":""' @click=fBrand(2518477394036736)><img-->
-            <!--src="../../assets/images/ford@3x.png" alt="">福特-->
-          <!--</li>-->
-          <!--<li :class='bflag == 2518477393823744?"color":""' @click=fBrand(2518477393823744)><img-->
-            <!--src="../../assets/images/dazhong@3x.png" alt="">大众-->
-          <!--</li>-->
-          <!--<li :class='bflag == 2518477391775744?"color":""' @click=fBrand(2518477391775744)><img-->
-            <!--src="../../assets/images/bieke@3x.png" alt="">别克-->
-          <!--</li>-->
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         </ul>
@@ -154,7 +139,7 @@
           isNewCar: true,
           size: "10",
           page: "1",
-          cityId: 18,
+          cityId: '',
           orderType: "1",
           minPrice: null,
           maxPrice: null,
@@ -166,9 +151,9 @@
         },
         usedcarInfo: {
           isNewCar: false,
-          size: "20",
+          size: "10",
           page: "1",
-          cityId: 18,
+          cityId: '',
           orderType: "1",
           minPrice: null,
           maxPrice: null,
@@ -188,12 +173,30 @@
       }
     },
     created() {
+      if (!localStorage.getItem("city")) {
+        var cityinfo = {cityname: '武汉', id: 18}
+        var city = JSON.stringify(cityinfo);
+        localStorage.setItem('city', city)
+      }
+      var cid = JSON.parse(localStorage.getItem("city")).id
+      if (cid) {
+        this.usedcarInfo.cityId = cid
+        this.newcarInfo.cityId = cid
+      } else {
+        if (JSON.parse(localStorage.getItem("city")).cityname == '全国') {
+          this.usedcarInfo.cityId = cid
+          this.newcarInfo.cityId = cid
+        } else {
+          this.usedcarInfo.cityId = 18
+          this.newcarInfo.cityId = 18
+        }
+      }
+
       this.getNewcar();
       this.getUsedcar();
       this.getBannerImg();
     },
     mounted() {
-
     },
     methods: {
       oClick: function (str) {
@@ -260,21 +263,131 @@
       loadBottom: function () {
         if (this.totalpage == 1) {
           this.newcarInfo.page = 1;
+          this.usedcarInfo.page = 1;
           this.allLoaded = true;
         } else {
+          this.usedcarInfo.page = this.usedcarInfo.page - 0 + 1;
           this.newcarInfo.page = this.newcarInfo.page - 0 + 1;
-          //console.log(this.carInfo.page);
           this.allLoaded = false;
         }
+        var burl = this.$common.baseUrl + "/car/source/wx/getOldCarList"
+        // var bqs = require('qs');
+        // var bdata = {}
+        // bdata.isNewCar = this.usedcarInfo.isNewCar
+        // bdata.size = this.usedcarInfo.size
+        // bdata.page = this.usedcarInfo.page
+        // bdata.orderType = this.usedcarInfo.orderType
+        // this.usedcarInfo.cityId ? bdata.cityId = this.usedcarInfo.cityId : '';
+        // this.usedcarInfo.minPrice ? bdata.minPrice = this.usedcarInfo.minPrice : '';
+        // this.usedcarInfo.maxPrice ? bdata.maxPrice = this.usedcarInfo.maxPrice : '';
+        // this.usedcarInfo.minFirstPay ? bdata.minFirstPay = this.usedcarInfo.minFirstPay : '';
+        // this.usedcarInfo.maxFirstPay ? bdata.maxFirstPay = this.usedcarInfo.maxFirstPay : '';
+        // this.usedcarInfo.minRepay ? bdata.minRepay = this.usedcarInfo.minRepay : '';
+        // this.usedcarInfo.maxRepay ? bdata.maxRepay = this.usedcarInfo.maxRepay : '';
+        // this.usedcarInfo.searchKey ? bdata.searchKey = this.usedcarInfo.searchKey : '';
+        // this.usedcarInfo.carBrandId ? bdata.carBrandId = this.usedcarInfo.carBrandId : '';
+        // var bparam = bqs.stringify(bdata);
+        var bparam = new URLSearchParams();
+        bparam.append("isNewCar", this.usedcarInfo.isNewCar);
+        bparam.append("size", this.usedcarInfo.size);
+        bparam.append("page", this.usedcarInfo.page);
+        bparam.append("orderType", this.usedcarInfo.orderType);
+        this.usedcarInfo.searchKey ? bparam.append("searchKey", this.usedcarInfo.searchKey) : '';
+        this.usedcarInfo.cityId ? bparam.append("cityId", this.usedcarInfo.cityId) : '';
+        this.usedcarInfo.minPrice ? bparam.append("minPrice", this.usedcarInfo.minPrice) : '';
+        this.usedcarInfo.maxPrice ? bparam.append("maxPrice", this.usedcarInfo.maxPrice) : '';
+        this.usedcarInfo.minFirstPay ? bparam.append("minFirstPay", this.usedcarInfo.minFirstPay) : '';
+        this.usedcarInfo.maxFirstPay ? bparam.append("maxFirstPay", this.usedcarInfo.maxFirstPay) : '';
+        this.usedcarInfo.minRepay ? bparam.append("minRepay", this.usedcarInfo.minRepay) : '';
+        this.usedcarInfo.maxRepay ? bparam.append("maxRepay", this.usedcarInfo.maxRepay) : '';
+        this.usedcarInfo.carBrandId ? bparam.append("carBrandId", this.usedcarInfo.carBrandId) : '';
+        var that = this
+        console.log(bparam);
+        this.$axios.post(burl, bparam)
+          .then(function (res) {
+            if (res.status == 200) {
+              that.totalpage = res.data.data.totalpage
+              that.usedCarlist = that.usedCarlist.concat(res.data.data.list);
+            }
+            that.isHaveMore();
+          }).catch(function (error) {
+          console.log(error);
+        });
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
 
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let param = new URLSearchParams();
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.newcarInfo.isNewCar
+        // data.size = this.newcarInfo.size
+        // data.page = this.newcarInfo.page
+        // data.orderType = this.newcarInfo.orderType
+        // this.newcarInfo.cityId ? data.cityId = this.newcarInfo.cityId : '';
+        // this.newcarInfo.minPrice ? data.minPrice = this.newcarInfo.minPrice : '';
+        // this.newcarInfo.maxPrice ? data.maxPrice = this.newcarInfo.maxPrice : '';
+        // this.newcarInfo.minFirstPay ? data.minFirstPay = this.newcarInfo.minFirstPay : '';
+        // this.newcarInfo.maxFirstPay ? data.maxFirstPay = this.newcarInfo.maxFirstPay : '';
+        // this.newcarInfo.minRepay ? data.minRepay = this.newcarInfo.minRepay : '';
+        // this.newcarInfo.maxRepay ? data.maxRepay = this.newcarInfo.maxRepay : '';
+        // this.newcarInfo.searchKey ? data.searchKey = this.newcarInfo.searchKey : '';
+        // this.newcarInfo.carBrandId ? data.carBrandId = this.newcarInfo.carBrandId : '';
+        // var param = qs.stringify(data);
+
+        var param = new URLSearchParams();
         param.append("isNewCar", this.newcarInfo.isNewCar);
         param.append("size", this.newcarInfo.size);
         param.append("page", this.newcarInfo.page);
         param.append("orderType", this.newcarInfo.orderType);
-        this.newcarInfo.cityId ? param.append("cityId", this.newcarInfo.cityId) : '';
         this.newcarInfo.searchKey ? param.append("searchKey", this.newcarInfo.searchKey) : '';
+        this.newcarInfo.cityId ? param.append("cityId", this.newcarInfo.cityId) : '';
+        this.newcarInfo.minPrice ? param.append("minPrice", this.newcarInfo.minPrice) : '';
+        this.newcarInfo.maxPrice ? param.append("maxPrice", this.newcarInfo.maxPrice) : '';
+        this.newcarInfo.minFirstPay ? param.append("minFirstPay", this.newcarInfo.minFirstPay) : '';
+        this.newcarInfo.maxFirstPay ? param.append("maxFirstPay", this.newcarInfo.maxFirstPay) : '';
+        this.newcarInfo.minRepay ? param.append("minRepay", this.newcarInfo.minRepay) : '';
+        this.newcarInfo.maxRepay ? param.append("maxRepay", this.newcarInfo.maxRepay) : '';
+        this.newcarInfo.carBrandId ? param.append("carBrandId", this.newcarInfo.carBrandId) : '';
+        var that = this
+        this.$axios.post(url, param)
+          .then(function (res) {
+            console.log(res);
+            that.totalpage = res.data.data.totalpage
+            that.newCarlist = that.newCarlist.concat(res.data.data.list);
+            that.isHaveMore();
+          }).catch(function (error) {
+          console.log(error);
+        });
+
+
+        this.$refs.loadmore.onBottomLoaded();
+
+      },
+      getNewcar() {
+        // var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        // console.log(this.newcarInfo);
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.newcarInfo.isNewCar
+        // data.size = this.newcarInfo.size
+        // data.page = this.newcarInfo.page
+        // data.orderType = this.newcarInfo.orderType
+        // this.newcarInfo.cityId ? data.cityId = this.newcarInfo.cityId : '';
+        // this.newcarInfo.minPrice ? data.minPrice = this.newcarInfo.minPrice : '';
+        // this.newcarInfo.maxPrice ? data.maxPrice = this.newcarInfo.maxPrice : '';
+        // this.newcarInfo.minFirstPay ? data.minFirstPay = this.newcarInfo.minFirstPay : '';
+        // this.newcarInfo.maxFirstPay ? data.maxFirstPay = this.newcarInfo.maxFirstPay : '';
+        // this.newcarInfo.minRepay ? data.minRepay = this.newcarInfo.minRepay : '';
+        // this.newcarInfo.maxRepay ? data.maxRepay = this.newcarInfo.maxRepay : '';
+        // this.newcarInfo.searchKey ? data.searchKey = this.newcarInfo.searchKey : '';
+        // this.newcarInfo.carBrandId ? data.carBrandId = this.newcarInfo.carBrandId : '';
+        // var param = qs.stringify(data);
+        var param = new URLSearchParams();
+        param.append("isNewCar", this.newcarInfo.isNewCar);
+        param.append("size", this.newcarInfo.size);
+        param.append("page", this.newcarInfo.page);
+        param.append("orderType", this.newcarInfo.orderType);
+        this.newcarInfo.searchKey ? param.append("searchKey", this.newcarInfo.searchKey) : '';
+        this.newcarInfo.cityId ? param.append("cityId", this.newcarInfo.cityId) : '';
         this.newcarInfo.minPrice ? param.append("minPrice", this.newcarInfo.minPrice) : '';
         this.newcarInfo.maxPrice ? param.append("maxPrice", this.newcarInfo.maxPrice) : '';
         this.newcarInfo.minFirstPay ? param.append("minFirstPay", this.newcarInfo.minFirstPay) : '';
@@ -283,42 +396,7 @@
         this.newcarInfo.maxRepay ? param.append("maxRepay", this.newcarInfo.maxRepay) : '';
         this.newcarInfo.carBrandId ? param.append("carBrandId", this.newcarInfo.carBrandId) : '';
         // console.log(param);
-        let that = this
-        this.$axios.post(url, param)
-          .then(function (res) {
-            console.log(res);
-            that.totalpage = res.data.data.totalpage
-
-            that.newCarlist = that.newCarlist.concat(res.data.data.list);
-
-            that.isHaveMore();
-          }).catch(function (error) {
-          console.log(error);
-        });
-        this.$refs.loadmore.onBottomLoaded();
-
-
-        // this.more();// 上拉触发的分页查询
-        // this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
-      },
-      getNewcar() {
-        // let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        console.log(this.newcarInfo);
-        let param = new URLSearchParams();
-        param.append("isNewCar", this.newcarInfo.isNewCar);
-        param.append("size", this.newcarInfo.size);
-        param.append("page", this.newcarInfo.page);
-        param.append("orderType", this.newcarInfo.orderType);
-        this.newcarInfo.cityId ? param.append("cityId", this.newcarInfo.cityId) : '';
-        this.newcarInfo.minPrice ? param.append("minPrice", this.newcarInfo.minPrice) : '';
-        this.newcarInfo.maxPrice ? param.append("maxPrice", this.newcarInfo.maxPrice) : '';
-        this.newcarInfo.minFirstPay ? param.append("minFirstPay", this.newcarInfo.minFirstPay) : '';
-        this.newcarInfo.maxFirstPay ? param.append("maxFirstPay", this.newcarInfo.maxFirstPay) : '';
-        this.newcarInfo.minRepay ? param.append("minRepay", this.newcarInfo.minRepay) : '';
-        this.newcarInfo.maxRepay ? param.append("maxRepay", this.newcarInfo.maxRepay) : '';
-        this.newcarInfo.carBrandId ? param.append("carBrandId", this.newcarInfo.carBrandId) : '';
-        let that = this
+        var that = this
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
@@ -340,13 +418,30 @@
         });
       },
       getUsedcar() {
-        let url = this.$common.baseUrl + "/car/source/wx/getOldCarList";
-        let that = this
-        let param = new URLSearchParams();
+        var url = this.$common.baseUrl + "/car/source/wx/getOldCarList";
+        var that = this
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.usedcarInfo.isNewCar
+        // data.size = this.usedcarInfo.size
+        // data.page = this.usedcarInfo.page
+        // data.orderType = this.usedcarInfo.orderType
+        // this.usedcarInfo.cityId ? data.cityId = this.usedcarInfo.cityId : '';
+        // this.usedcarInfo.minPrice ? data.minPrice = this.usedcarInfo.minPrice : '';
+        // this.usedcarInfo.maxPrice ? data.maxPrice = this.usedcarInfo.maxPrice : '';
+        // this.usedcarInfo.minFirstPay ? data.minFirstPay = this.usedcarInfo.minFirstPay : '';
+        // this.usedcarInfo.maxFirstPay ? data.maxFirstPay = this.usedcarInfo.maxFirstPay : '';
+        // this.usedcarInfo.minRepay ? data.minRepay = this.usedcarInfo.minRepay : '';
+        // this.usedcarInfo.maxRepay ? data.maxRepay = this.usedcarInfo.maxRepay : '';
+        // this.usedcarInfo.searchKey ? data.searchKey = this.usedcarInfo.searchKey : '';
+        // this.usedcarInfo.carBrandId ? data.carBrandId = this.usedcarInfo.carBrandId : '';
+        // var param = qs.stringify(data);
+        var param = new URLSearchParams();
         param.append("isNewCar", this.usedcarInfo.isNewCar);
         param.append("size", this.usedcarInfo.size);
         param.append("page", this.usedcarInfo.page);
         param.append("orderType", this.usedcarInfo.orderType);
+        this.usedcarInfo.searchKey ? param.append("searchKey", this.usedcarInfo.searchKey) : '';
         this.usedcarInfo.cityId ? param.append("cityId", this.usedcarInfo.cityId) : '';
         this.usedcarInfo.minPrice ? param.append("minPrice", this.usedcarInfo.minPrice) : '';
         this.usedcarInfo.maxPrice ? param.append("maxPrice", this.usedcarInfo.maxPrice) : '';
@@ -376,19 +471,19 @@
       isHaveMore: function () {
         //是否还有下一页，如果没有就禁止上拉刷新
         this.allLoaded = false; //true是禁止上拉加载
-
         if (this.newcarInfo.page == this.totalpage || this.usedcarInfo.page == this.totalpage) {
           this.allLoaded = true;
         }
       },
       getBannerImg() {
-        const url = this.$common.baseUrl + '/car/source/wx/getBannerImgs'
-        const that = this
+        var url = this.$common.baseUrl + '/car/source/wx/getBannerImgs'
+        var that = this
         this.$axios.post(url).then(function (res) {
           console.log(res.data.data);
           that.bannerImgs = res.data.data;
         })
-      }
+      },
+
     }
   }
 </script>
@@ -408,7 +503,7 @@
     text-align: center;
     line-height: 2rem;
     color: #ffffff;
-    img{
+    img {
       width: 100%;
       height: 100%;
     }

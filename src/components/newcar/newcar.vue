@@ -21,6 +21,9 @@
           <span class='iconfont icon-filter '></span>
         </div>
       </div>
+      <!--<div id="infoShow">-->
+
+      <!--</div>-->
       <v-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <div class="car_list">
           <router-link class="car_msg" v-for='item in newCarlist'
@@ -68,7 +71,6 @@
           <li :class='{"f-active":all.p_active==6}' @click="payClick($event,6)">4万以上</li>
         </ul>
       </div>
-
     </div>
     <ul class='carBrand' v-show='carBrand' style="display: none">
       <li @click=bClick(null)>
@@ -211,7 +213,17 @@
     created() {
       //console.log(this.$route.query);
       this.carInfo = this.$route.query;
-      console.log(this.carInfo);
+      var cid = JSON.parse(localStorage.getItem("city")).id
+      if (cid) {
+        this.carInfo.cityId = cid
+      } else {
+        if (JSON.parse(localStorage.getItem("city")).cityname == '全国') {
+          this.carInfo.cityId = cid
+        } else {
+          this.carInfo.cityId = 18
+        }
+      }
+
       this.getNewcar();
       this.getBrandInfo()
     },
@@ -221,7 +233,7 @@
         // this.$refs.loadmore.onBottomLoaded();
       },
       loadBottom() {
-      //
+        //
         if (this.totalpage == 1) {
           this.carInfo.page = 1;
           this.allLoaded = true;
@@ -230,7 +242,7 @@
           //console.log(this.carInfo.page);
           this.allLoaded = false;
         }
-      this.getNewcar()
+        this.getNewcar()
         // 上拉加载
         // this.more();// 上拉触发的分页查询
         // // this.$refs.loadmore.onBottomLoaded();// 固定方法，查询完要调用一次，用于重新定位
@@ -239,8 +251,8 @@
       },
       getInfo: function () {
         this.carInfo.page = 1;
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let param = new URLSearchParams();
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        var param = new URLSearchParams();
         param.append("isNewCar", this.carInfo.isNewCar);
         param.append("size", this.carInfo.size);
         param.append("page", this.carInfo.page);
@@ -255,7 +267,7 @@
         this.carInfo.maxRepay ? param.append("maxRepay", this.carInfo.maxRepay) : '';
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
         //console.log(param);
-        let that = this
+        var that = this
         this.$axios.post(url, param)
           .then(function (res) {
             console.log(res);
@@ -266,9 +278,9 @@
         });
       },
       getNewcar() {
-        let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        let that = this
-        let param = new URLSearchParams();
+        var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        var that = this
+        var param = new URLSearchParams();
         param.append("isNewCar", this.carInfo.isNewCar);
         param.append("size", this.carInfo.size);
         param.append("page", this.carInfo.page);
@@ -282,6 +294,25 @@
         this.carInfo.minRepay ? param.append("minRepay", this.carInfo.minRepay) : '';
         this.carInfo.maxRepay ? param.append("maxRepay", this.carInfo.maxRepay) : '';
         this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
+
+
+        // var qs = require('qs');
+        // var data = {}
+        // data.isNewCar = this.carInfo.isNewCar
+        // data.size = this.carInfo.size
+        // data.page = this.carInfo.page
+        // data.orderType = this.carInfo.orderType
+        // this.carInfo.cityId ? data.cityId = this.carInfo.cityId : '';
+        // this.carInfo.minPrice ? data.minPrice = this.carInfo.minPrice : '';
+        // this.carInfo.maxPrice ? data.maxPrice = this.carInfo.maxPrice : '';
+        // this.carInfo.minFirstPay ? data.minFirstPay = this.carInfo.minFirstPay : '';
+        // this.carInfo.maxFirstPay ? data.maxFirstPay = this.carInfo.maxFirstPay : '';
+        // this.carInfo.minRepay ? data.minRepay = this.carInfo.minRepay : '';
+        // this.carInfo.maxRepay ? data.maxRepay = this.carInfo.maxRepay : '';
+        // this.carInfo.searchKey ? data.searchKey = this.carInfo.searchKey : '';
+        // this.carInfo.carBrandId ? data.carBrandId = this.carInfo.carBrandId : '';
+        // var param = qs.stringify(data);
+
         // console.log(param);
         this.$axios.post(url, param)
           .then(function (res) {
@@ -316,8 +347,8 @@
         // // this.carInfo.page = this.carInfo.page - 0 + 1;
         // // console.log(this.carInfo.page);
         // // this.allLoaded = false;
-        // let url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
-        // let param = new URLSearchParams();
+        // var url = this.$common.baseUrl + "/car/source/wx/getCarPriceList";
+        // var param = new URLSearchParams();
         // param.append("isNewCar", this.carInfo.isNewCar);
         // param.append("size", this.carInfo.size);
         // param.append("page", this.carInfo.page);
@@ -333,7 +364,7 @@
         // this.carInfo.maxRepay ? param.append("maxRepay", this.carInfo.maxRepay) : '';
         // this.carInfo.carBrandId ? param.append("carBrandId", this.carInfo.carBrandId) : '';
         // // console.log(param);
-        // let that = this
+        // var that = this
         // this.$axios.post(url, param)
         //   .then(function (res) {
         //     console.log(res);
@@ -354,13 +385,14 @@
         }
       },
       getBrandInfo: function () {
-        // let url = this.$common.baseUrl + '/car/basic/getHotBrand';
-        // let url = this.$common.baseUrl + '/car/basic/getBrandList' ;
-        let url = this.$common.baseUrl + '/car/source/wx/getBrandList';
-        this.$axios.post(url).then(res => {
+        // var url = this.$common.baseUrl + '/car/basic/getHotBrand';
+        // var url = this.$common.baseUrl + '/car/basic/getBrandList' ;
+        var url = this.$common.baseUrl + '/car/source/wx/getBrandList';
+        var that = this
+        this.$axios.post(url).then(function (res) {
           // console.log(res.data.data);
           if (res.data.res_code == '0000') {
-            this.carBrandList = res.data.data;
+            that.carBrandList = res.data.data;
           }
         }).catch(function (error) {
           console.log(error);

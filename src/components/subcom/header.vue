@@ -14,19 +14,20 @@
       <mu-drawer right :open="open1" :docked="docked" @close="toggle()">
         <ul @itemClick="docked ? '' : toggle()" class='menu'>
           <li>
-            <router-link :to="'/'">首页</router-link>
+            <router-link :to="'/home'">首页</router-link>
           </li>
           <li>
-            <router-link :to="{path:'/newcar',query:{isNewCar:true,size:10,page:1,orderType:1,cityId:18}}">买新车
+            <router-link :to="{path:'/newcar',query:{isNewCar:true,size:10,page:1,orderType:1,}}">买新车
             </router-link>
           </li>
           <li>
-            <router-link :to="{path:'/usedcar',query:{isNewCar:false,size:10,page:1,orderType:1,cityId:18}}">买二手车
+            <router-link :to="{path:'/usedcar',query:{isNewCar:false,size:10,page:1,orderType:1,}}">买二手车
             </router-link>
           </li>
           <div class="bb"></div>
           <li>
-          <router-link :to="{path:'/youhui',query:{size:10,page:1,orderType:1,isPreferential:true}}">优惠车型</router-link>
+            <router-link :to="{path:'/youhui',query:{size:10,page:1,orderType:1,isPreferential:true}}">优惠车型
+            </router-link>
           </li>
           <li>
             <router-link :to="'/appointment'">我要提车</router-link>
@@ -114,29 +115,85 @@
         provname: '武汉',
         titlename: '',
         searchKey: '',
+        getPath: ''
       }
     },
     created() {
-      console.log(this.$route.query);
-      this.searchKey = this.$route.query.searchKey
-      this.provname = localStorage.getItem("cityname") || "武汉"
+      var that = this
+      // console.log(this.$route.query);
+      that.getPath = this.$route.path
+      console.log(that.getPath);
+      that.searchKey = that.$route.query.searchKey
+      var cName = JSON.parse(localStorage.getItem("city")).cityname
+      that.provname = cName || "武汉"
     },
     methods: {
       getcity(name, id) {
-        console.log(id);
-        console.log(name);
-        localStorage.setItem("cityname", name);
-        this.$router.push({
-          path: '/newcar',
-          query: {
-            "isNewCar": true,
-            "size": '10',
-            "page": '1',
-            "cityId": id,
-            "orderType": '1',
-          }
-        })
-        this.popupVisible = false
+        var that = this
+        var cityinfo = {cityname: name, id: id}
+        var city = JSON.stringify(cityinfo);
+        localStorage.setItem('city', city)
+        if (that.getPath.indexOf('/newcar') !== -1) {
+          that.$router.push({
+            path: '/newcar',
+            query: {
+              "isNewCar": true,
+              "size": '10',
+              "page": '1',
+              "cityId": id,
+              "orderType": '1',
+            }
+          })
+        } else if (that.getPath.indexOf('/usedcar') !== -1) {
+          that.$router.push({
+            path: '/usedcar',
+            query: {
+              "isNewCar": false,
+              "size": '10',
+              "page": '1',
+              "cityId": id,
+              "orderType": '1',
+            }
+          })
+        } else if (that.getPath.indexOf('/youhui') !== -1) {
+          that.$router.push({
+            path: '/youhui',
+            query: {
+              "isNewCar": null,
+              "size": '10',
+              "page": '1',
+              "cityId": id,
+              "orderType": '1',
+            }
+          })
+        } else {
+          var cityinfo = {cityname: name, id: id}
+          var city = JSON.stringify(cityinfo);
+          localStorage.setItem('city', city)
+          location.reload()
+          // that.$router.go('/home')
+          // that.$router.push({path: '/home'})
+
+        }
+        // console.log(id);
+        // console.log(name);
+
+        // var cityinfo =  {cityname: name, id: id}
+        // var city = JSON.stringify(cityinfo);
+        // localStorage.setItem('city',city)
+        // localStorage.setItem("cityname", name);
+        // localStorage.setItem("cityId", id);
+        // this.$router.push({
+        //   path: '/newcar',
+        //   query: {
+        //     "isNewCar": true,
+        //     "size": '10',
+        //     "page": '1',
+        //     "cityId": id,
+        //     "orderType": '1',
+        //   }
+        // })
+        that.popupVisible = false
       },
       demo: function () {
         console.log(123);
@@ -144,32 +201,68 @@
       picker: function (event, id) {
         // this.open2 = true;
         console.log(id);
-        let url = this.$common.baseUrl + '/car/basic/getCitysByProvId'
-        this.$axios.post(url + '?provId=' + id + '').then(res => {
+        var that = this
+        var url = this.$common.baseUrl + '/car/basic/getCitysByProvId'
+        this.$axios.post(url + '?provId=' + id + '').then(function (res) {
           console.log(res.data.data[0])
-          this.titlename = res.data.data[0].prov_name
-          console.log(this.provname);
+          that.titlename = res.data.data[0].prov_name
+          console.log(that.provname);
           if (res.data.data[1]) {
-            this.open2 = true;
-            this.citylist = res.data.data;
+            that.open2 = true;
+            that.citylist = res.data.data;
           } else {
-            this.open2 = false
-            localStorage.setItem("cityname", res.data.data[0].prov_name)
-            // let url = this.$common.baseUrl + '/car/source/wx/getCarPriceList'
-            // this.$axios.post(url + '?isNewCar=true&size=5&page=1&provId=' + id + '&orderType=1').then(res => {
-            //   console.log(res);
-            // })
-            this.$router.push({
-              path: '/newcar',
-              query: {
-                "isNewCar": true,
-                "size": '10',
-                "page": '1',
-                "cityId": id,
-                "orderType": 1,
-              }
-            })
-            this.popupVisible = false
+            that.open2 = false
+            var cityname = res.data.data[0].prov_name
+            var cityid = id
+            var cityinfo = {cityname: cityname, id: cityid}
+            var city = JSON.stringify(cityinfo);
+            localStorage.setItem('city', city)
+            if (that.getPath.indexOf('/newcar') !== -1) {
+              that.$router.push({
+                path: '/newcar',
+                query: {
+                  "isNewCar": true,
+                  "size": '10',
+                  "page": '1',
+                  "cityId": id,
+                  "orderType": '1',
+                }
+              })
+            } else if (that.getPath.indexOf('/usedcar') !== -1) {
+              that.$router.push({
+                path: '/usedcar',
+                query: {
+                  "isNewCar": false,
+                  "size": '10',
+                  "page": '1',
+                  "cityId": id,
+                  "orderType": '1',
+                }
+              })
+            } else if (that.getPath.indexOf('/youhui') !== -1) {
+              that.$router.push({
+                path: '/youhui',
+                query: {
+                  "isNewCar": null,
+                  "size": '10',
+                  "page": '1',
+                  "cityId": id,
+                  "orderType": '1',
+                }
+              })
+            } else {
+              that.$router.push({
+                path: '/newcar',
+                query: {
+                  "isNewCar": true,
+                  "size": '10',
+                  "page": '1',
+                  "cityId": id,
+                  "orderType": 1,
+                }
+              })
+            }
+            that.popupVisible = false
           }
         })
       },
@@ -182,13 +275,14 @@
       },
       openCity() {
         this.popupVisible = !this.popupVisible
-        let url = this.$common.baseUrl + '/car/source/wx/getAreaList'
+        var url = this.$common.baseUrl + '/car/source/wx/getAreaList'
+        var that = this
         this.$axios.post(url)
-          .then(res => {
+          .then(function (res) {
             console.log(res);
             if (res.status == 200) {
               console.log(res.data.data[0]);
-              this.provlist = res.data.data;
+              that.provlist = res.data.data;
 
             }
           })
